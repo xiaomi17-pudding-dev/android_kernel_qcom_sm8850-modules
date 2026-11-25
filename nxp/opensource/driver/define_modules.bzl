@@ -46,6 +46,9 @@ def define_modules(target, variant):
         copts.append("-DCONFIG_NFC_BOB1")
         copts.append("-DCONFIG_NFC_NXP_I2C_DMA_SAFE")
 
+    # Kbuild gets this from config/gki_nfc_conf.h
+    copts.append("-DCONFIG_NXP_NFC_I2C")
+
     ddk_module(
         name = "{}_nxp-nci".format(tv),
         out = "nxp-nci.ko",
