@@ -880,14 +880,18 @@ void sde_sync_put(void *fence)
 		dma_fence_put(fence);
 }
 
+static struct dma_fence_ops sde_fence_ops;
+static void sde_fence_timeline_value_str(struct dma_fence *fence, char *str,
+		int size);
+
 void sde_fence_dump(struct dma_fence *fence)
 {
 	struct dma_fence_array *array = NULL;
-	char timeline_str[TIMELINE_VAL_LENGTH];
+	char timeline_str[TIMELINE_VAL_LENGTH] = {0};
 	uint32_t i;
 
-	if (fence->ops->timeline_value_str)
-		fence->ops->timeline_value_str(fence, timeline_str, TIMELINE_VAL_LENGTH);
+	if (fence->ops == &sde_fence_ops)
+		sde_fence_timeline_value_str(fence, timeline_str, TIMELINE_VAL_LENGTH);
 
 	SDE_ERROR(
 		"fence drv name:%s timeline name:%s seqno:0x%llx timeline:%s signaled:0x%x status:%d flags:0x%lx\n",
@@ -1055,7 +1059,6 @@ static void sde_fence_value_str(struct dma_fence *fence, char *str, int size)
 }
 #endif
 
-#if (KERNEL_VERSION(6, 16, 0) > LINUX_VERSION_CODE)
 static void sde_fence_timeline_value_str(struct dma_fence *fence, char *str,
 		int size)
 {
@@ -1066,7 +1069,6 @@ static void sde_fence_timeline_value_str(struct dma_fence *fence, char *str,
 
 	snprintf(str, size, "%d", f->ctx->done_count);
 }
-#endif
 
 static struct dma_fence_ops sde_fence_ops = {
 	.get_driver_name = sde_fence_get_driver_name,
@@ -1373,11 +1375,10 @@ void sde_fence_timeline_status(struct sde_fence_context *ctx,
 
 void sde_fence_list_dump(struct dma_fence *fence, struct seq_file **s)
 {
-	char timeline_str[TIMELINE_VAL_LENGTH];
+	char timeline_str[TIMELINE_VAL_LENGTH] = {0};
 
-	if (fence->ops->timeline_value_str)
-		fence->ops->timeline_value_str(fence,
-		timeline_str, TIMELINE_VAL_LENGTH);
+	if (fence->ops == &sde_fence_ops)
+		sde_fence_timeline_value_str(fence, timeline_str, TIMELINE_VAL_LENGTH);
 
 	seq_printf(*s, "fence name:%s timeline name:%s seqno:0x%llx timeline:%s signaled:0x%x\n",
 		fence->ops->get_driver_name(fence),
