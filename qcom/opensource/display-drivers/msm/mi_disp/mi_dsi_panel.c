@@ -7,6 +7,7 @@
 #define pr_fmt(fmt)	"mi-dsi-panel:[%s:%d] " fmt, __func__, __LINE__
 #include <linux/interrupt.h>
 #include <linux/irq.h>
+#include <linux/input/mi_pwrkey.h>
 #include <linux/delay.h>
 #include <linux/slab.h>
 #include <linux/gpio.h>
@@ -47,8 +48,6 @@ static u64 g_panel_id[MI_DISP_MAX];
 
 struct dsi_panel *g_panel;
 
-typedef int (*mi_display_pwrkey_callback)(int);
-extern void mi_display_pwrkey_callback_set(mi_display_pwrkey_callback);
 
 int mi_dsi_pwr_enable_vregs(struct dsi_regulator_info *regs, bool enable, int index)
 {
