@@ -406,7 +406,7 @@ void msm_audio_fd_list_debug(void)
 	}
 }
 
-void msm_audio_update_fd_list(struct msm_audio_fd_data *msm_audio_fd_data)
+static void msm_audio_update_fd_list(struct msm_audio_fd_data *msm_audio_fd_data)
 {
 	struct msm_audio_fd_data *msm_audio_fd_data1 = NULL;
 
@@ -424,7 +424,7 @@ void msm_audio_update_fd_list(struct msm_audio_fd_data *msm_audio_fd_data)
 	mutex_unlock(&(msm_audio_ion_fd_list.list_mutex));
 }
 
-void msm_audio_delete_fd_entry(void *handle, int handle_fd)
+static void msm_audio_delete_fd_entry(void *handle, int handle_fd)
 {
 	struct msm_audio_fd_data *msm_audio_fd_data = NULL;
 	struct list_head *ptr, *next;
@@ -500,7 +500,7 @@ static int msm_audio_set_hyp_assign(int fd, bool assign)
 	return status;
 }
 
-void msm_audio_get_handle(int fd, void **handle)
+static void msm_audio_get_handle(int fd, void **handle)
 {
 	struct msm_audio_fd_data *msm_audio_fd_data = NULL;
 
