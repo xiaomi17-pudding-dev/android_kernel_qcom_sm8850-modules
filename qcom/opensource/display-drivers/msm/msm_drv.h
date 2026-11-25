@@ -1599,6 +1599,8 @@ const struct msm_format *msm_framebuffer_format(struct drm_framebuffer *fb);
 struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
 		const struct drm_mode_fb_cmd2 *mode_cmd,
 		struct drm_gem_object **bos);
+int msm_ioctl_rmfb2(struct drm_device *dev, void *data,
+		struct drm_file *file_priv);
 struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
 		struct drm_file *file, const struct drm_format_info *info,
 		const struct drm_mode_fb_cmd2 *mode_cmd);

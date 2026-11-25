@@ -1608,7 +1608,7 @@ static void dsi_pll_assert_pll_reset(struct dsi_pll_resource *rsc)
 	wmb();
 }
 
-void dsi_pll_3nm_trigger_resets_pre_enable(struct dsi_pll_resource *rsc)
+static void dsi_pll_3nm_trigger_resets_pre_enable(struct dsi_pll_resource *rsc)
 {
 	int i;
 
@@ -1695,7 +1695,7 @@ int dsi_pll_3nm_toggle(void *pll, bool prepare)
 	return rc;
 }
 
-int dsi_pll_3nm_program_slave(struct dsi_pll_resource *pll, bool skip_op)
+static int __maybe_unused dsi_pll_3nm_program_slave(struct dsi_pll_resource *pll, bool skip_op)
 {
 	struct dsi_pll_resource *m_pll = pll_rsc_db[DSI_PLL_0];
 	u32 pll_post_div;

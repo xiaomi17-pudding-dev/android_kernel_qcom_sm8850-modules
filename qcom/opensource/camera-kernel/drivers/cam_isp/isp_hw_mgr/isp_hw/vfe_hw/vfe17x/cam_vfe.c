@@ -73,6 +73,7 @@
 #include "cam_vfe_core.h"
 #include "cam_vfe_dev.h"
 #include "camera_main.h"
+#include "cam_vfe.h"
 
 static const struct of_device_id cam_vfe_dt_match[] = {
 #if IS_ENABLED(CONFIG_ARCH_NAPALI)
