@@ -1045,6 +1045,7 @@ static void sde_fence_release(struct dma_fence *fence)
 	}
 }
 
+#if (KERNEL_VERSION(6, 16, 0) > LINUX_VERSION_CODE)
 static void sde_fence_value_str(struct dma_fence *fence, char *str, int size)
 {
 	if (!fence || !str)
@@ -1052,7 +1053,9 @@ static void sde_fence_value_str(struct dma_fence *fence, char *str, int size)
 
 	snprintf(str, size, "%llu", fence->seqno);
 }
+#endif
 
+#if (KERNEL_VERSION(6, 16, 0) > LINUX_VERSION_CODE)
 static void sde_fence_timeline_value_str(struct dma_fence *fence, char *str,
 		int size)
 {
@@ -1063,6 +1066,7 @@ static void sde_fence_timeline_value_str(struct dma_fence *fence, char *str,
 
 	snprintf(str, size, "%d", f->ctx->done_count);
 }
+#endif
 
 static struct dma_fence_ops sde_fence_ops = {
 	.get_driver_name = sde_fence_get_driver_name,
@@ -1071,8 +1075,10 @@ static struct dma_fence_ops sde_fence_ops = {
 	.signaled = sde_fence_signaled,
 	.wait = dma_fence_default_wait,
 	.release = sde_fence_release,
+#if (KERNEL_VERSION(6, 16, 0) > LINUX_VERSION_CODE)
 	.fence_value_str = sde_fence_value_str,
 	.timeline_value_str = sde_fence_timeline_value_str,
+#endif
 };
 
 /**

@@ -4,6 +4,7 @@
  * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
+#include <linux/version.h>
 #include <linux/dma-fence.h>
 #include <linux/file.h>
 #include <linux/list.h>
@@ -221,6 +222,7 @@ static const char *timeline_get_timeline_name(struct dma_fence *fence)
 	return f->timeline->name;
 }
 
+#if (KERNEL_VERSION(6, 16, 0) > LINUX_VERSION_CODE)
 static void timeline_get_value_str(struct dma_fence *fence,
 		char *str, int size)
 {
@@ -228,6 +230,7 @@ static void timeline_get_value_str(struct dma_fence *fence,
 
 	snprintf(str, size, "%lld", f->timeline->value);
 }
+#endif
 
 static const struct dma_fence_ops timeline_fence_ops = {
 	.get_driver_name = timeline_get_driver_name,
@@ -235,7 +238,9 @@ static const struct dma_fence_ops timeline_fence_ops = {
 	.signaled = timeline_fence_signaled,
 	.release = timeline_fence_release,
 	.enable_signaling = timeline_fence_enable_signaling,
+#if (KERNEL_VERSION(6, 16, 0) > LINUX_VERSION_CODE)
 	.timeline_value_str = timeline_get_value_str,
+#endif
 	.use_64bit_seqno = true,
 };
 
