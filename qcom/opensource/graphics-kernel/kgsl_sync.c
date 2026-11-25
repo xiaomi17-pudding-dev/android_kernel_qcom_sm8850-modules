@@ -870,6 +870,8 @@ void kgsl_get_fence_name(struct dma_fence *f, char *name, u32 max_size)
 		len += scnprintf(name + len, max_size - len, ": ");
 		f->ops->fence_value_str(f, name + len, max_size - len);
 	}
+#else
+	scnprintf(name + len, max_size - len, ": %llu", f->seqno);
 #endif
 
 }
