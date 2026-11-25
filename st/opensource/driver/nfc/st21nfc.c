@@ -192,7 +192,7 @@ struct st21nfc_device {
 };
 
 #ifdef CONFIG_NFC_BOB1
-void st21nfc_bob1_set(struct st21nfc_device *st21nfc_dev, unsigned char arg)
+static void st21nfc_bob1_set(struct st21nfc_device *st21nfc_dev, unsigned char arg)
 {
 	int rc = 0;
 	u8 *buf;
@@ -238,7 +238,7 @@ void st21nfc_bob1_set(struct st21nfc_device *st21nfc_dev, unsigned char arg)
 	kfree(buf);
 }
 #else
-void st21nfc_bob1_set(struct st21nfc_device *st21nfc_dev, unsigned char arg)
+static void st21nfc_bob1_set(struct st21nfc_device *st21nfc_dev, unsigned char arg)
 {
   // NFC BOB1 not supported
 }
@@ -730,7 +730,7 @@ void st21nfc_unregister_st54spi_cb(void)
  * Return: -ENOIOCTLCMD if sec_zone_trans val is not supported, 0 if Success(or no issue)
  * and error ret code otherwise
  */
-int nfc_dynamic_protection_ioctl(struct st21nfc_device *st21nfc_dev, unsigned long sec_zone_trans)
+static int nfc_dynamic_protection_ioctl(struct st21nfc_device *st21nfc_dev, unsigned long sec_zone_trans)
 {
 	int ret = 0;
 	struct i2c_client *client = st21nfc_dev->client;
@@ -772,7 +772,7 @@ int nfc_dynamic_protection_ioctl(struct st21nfc_device *st21nfc_dev, unsigned lo
  * Return: 0 if FEATURE_NOT_SUPPORTED/PERIPHERAL_NOT_FOUND/state is 2 and
  * return 1(non-secure) otherwise
  */
-bool nfc_hw_secure_check(void)
+static bool nfc_hw_secure_check(void)
 {
 	struct Object client_env;
 	struct Object app_object;
