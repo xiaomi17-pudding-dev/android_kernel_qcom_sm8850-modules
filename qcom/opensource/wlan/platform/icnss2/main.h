@@ -855,7 +855,7 @@ static inline int icnss_timer_delete(struct timer_list *timer)
 #else
 static inline int icnss_timer_delete(struct timer_list *timer)
 {
-	return del_timer(timer);
+	return timer_delete(timer);
 }
 #endif
 #endif

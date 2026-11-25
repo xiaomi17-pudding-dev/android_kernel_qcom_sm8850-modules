@@ -3310,28 +3310,13 @@ skip_irq_init:
 	phys_enc->enable_state = SDE_ENC_DISABLED;
 
 #if (KERNEL_VERSION(6, 15, 0) > LINUX_VERSION_CODE)
-	hrtimer_init(&phys_enc->sde_vrr_cfg.freq_step_timer,
-		CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-	phys_enc->sde_vrr_cfg.freq_step_timer.function =
-		sde_encoder_phys_vid_freq_step_callback;
-	hrtimer_init(&phys_enc->sde_vrr_cfg.arp_transition_timer,
-		CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-	phys_enc->sde_vrr_cfg.arp_transition_timer.function =
-		sde_encoder_phys_vid_arp_transition_timer_cb;
-	hrtimer_init(&phys_enc->sde_vrr_cfg.self_refresh_timer,
-		CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-	phys_enc->sde_vrr_cfg.self_refresh_timer.function =
-		sde_encoder_phys_phys_self_refresh_helper;
+	hrtimer_setup(&phys_enc->sde_vrr_cfg.freq_step_timer, sde_encoder_phys_vid_freq_step_callback, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+	hrtimer_setup(&phys_enc->sde_vrr_cfg.arp_transition_timer, sde_encoder_phys_vid_arp_transition_timer_cb, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+	hrtimer_setup(&phys_enc->sde_vrr_cfg.self_refresh_timer, sde_encoder_phys_phys_self_refresh_helper, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 
-	hrtimer_init(&phys_enc->sde_vrr_cfg.backlight_timer,
-		CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-	phys_enc->sde_vrr_cfg.backlight_timer.function =
-		sde_encoder_phys_backlight_timer_cb;
+	hrtimer_setup(&phys_enc->sde_vrr_cfg.backlight_timer, sde_encoder_phys_backlight_timer_cb, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 
-	hrtimer_init(&phys_enc->empulse_backup_timer,
-		CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-	phys_enc->empulse_backup_timer.function =
-		sde_encoder_phys_vid_esync_backup_sim;
+	hrtimer_setup(&phys_enc->empulse_backup_timer, sde_encoder_phys_vid_esync_backup_sim, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 #else
 	hrtimer_setup(&phys_enc->sde_vrr_cfg.freq_step_timer,
 		sde_encoder_phys_vid_freq_step_callback, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
