@@ -296,8 +296,7 @@ rmnet_perf_sk_lookup(struct rmnet_perf_quickack_tuple *tuple,
 	struct net *net = dev_net(skb_dev);
 
 	if (tuple->ip_proto == 4)
-		return inet_lookup_established(net, &tcp_hashinfo,
-					       tuple->v4_saddr,
+		return inet_lookup_established(net, tuple->v4_saddr,
 					       tuple->sport, tuple->v4_daddr,
 					       tuple->dport, skb_dev->ifindex);
 
@@ -307,7 +306,7 @@ rmnet_perf_sk_lookup(struct rmnet_perf_quickack_tuple *tuple,
 	 * actually handles doing that for us. The lookup code REALLY does want
 	 * dport in host order ;)
 	 */
-	return __inet6_lookup_established(net, &tcp_hashinfo, &tuple->v6_saddr,
+	return __inet6_lookup_established(net, &tuple->v6_saddr,
 					  tuple->sport, &tuple->v6_daddr,
 					  ntohs(tuple->dport), skb_dev->ifindex,
 					  0);
