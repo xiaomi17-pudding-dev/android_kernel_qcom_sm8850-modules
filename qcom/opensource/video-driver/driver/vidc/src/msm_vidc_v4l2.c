@@ -66,7 +66,8 @@ int msm_v4l2_open(struct file *filp)
 		trace_msm_v4l2_vidc_open("END", NULL);
 		return -ENOMEM;
 	}
-	filp->private_data = &(inst->fh);
+	/* Also sets filp->private_data */
+	v4l2_fh_add(&inst->fh, filp);
 	trace_msm_v4l2_vidc_open("END", inst);
 	return 0;
 }
@@ -84,8 +85,9 @@ int msm_v4l2_close(struct file *filp)
 
 	trace_msm_v4l2_vidc_close("START", inst);
 
+	/* Also clears filp->private_data */
+	v4l2_fh_del(&inst->fh, filp);
 	rc = msm_vidc_close(inst);
-	filp->private_data = NULL;
 	trace_msm_v4l2_vidc_close("END", NULL);
 	return rc;
 }

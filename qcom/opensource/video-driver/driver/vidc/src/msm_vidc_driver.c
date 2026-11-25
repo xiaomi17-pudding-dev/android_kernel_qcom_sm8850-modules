@@ -3727,7 +3727,6 @@ int msm_vidc_v4l2_fh_init(struct msm_vidc_inst *inst)
 
 	v4l2_fh_init(&inst->fh, &core->vdev[index].vdev);
 	inst->fh.ctrl_handler = &inst->ctrl_handler;
-	v4l2_fh_add(&inst->fh);
 
 	return rc;
 }
@@ -3742,7 +3741,6 @@ int msm_vidc_v4l2_fh_deinit(struct msm_vidc_inst *inst)
 		return 0;
 	}
 
-	v4l2_fh_del(&inst->fh);
 	inst->fh.ctrl_handler = NULL;
 	v4l2_fh_exit(&inst->fh);
 
