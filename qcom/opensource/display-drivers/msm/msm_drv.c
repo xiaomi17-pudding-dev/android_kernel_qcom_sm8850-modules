@@ -1020,6 +1020,7 @@ static int msm_drm_component_init(struct device *dev)
 	INIT_LIST_HEAD(&priv->fence_error_client_list);
 	BLOCKING_INIT_NOTIFIER_HEAD(&priv->component_notifier_list);
 	mutex_init(&priv->mm_lock);
+	mutex_init(&priv->struct_mutex);
 
 	mutex_init(&priv->vm_client_lock);
 	mutex_init(&priv->fence_error_client_lock);
@@ -1324,10 +1325,10 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
 	if (kms->funcs && kms->funcs->postclose)
 		kms->funcs->postclose(kms, file);
 
-	mutex_lock(&dev->struct_mutex);
+	mutex_lock(msm_struct_mutex(dev));
 	if (ctx == priv->lastctx)
 		priv->lastctx = NULL;
-	mutex_unlock(&dev->struct_mutex);
+	mutex_unlock(msm_struct_mutex(dev));
 
 	mutex_lock(&ctx->power_lock);
 	if (ctx->enable_refcnt) {
@@ -1425,7 +1426,7 @@ static int msm_ioctl_gem_madvise(struct drm_device *dev, void *data,
 		return -EINVAL;
 	}
 
-	ret = mutex_lock_interruptible(&dev->struct_mutex);
+	ret = mutex_lock_interruptible(msm_struct_mutex(dev));
 	if (ret)
 		return ret;
 
@@ -1444,7 +1445,7 @@ static int msm_ioctl_gem_madvise(struct drm_device *dev, void *data,
 	drm_gem_object_put(obj);
 
 unlock:
-	mutex_unlock(&dev->struct_mutex);
+	mutex_unlock(msm_struct_mutex(dev));
 	return ret;
 }
 

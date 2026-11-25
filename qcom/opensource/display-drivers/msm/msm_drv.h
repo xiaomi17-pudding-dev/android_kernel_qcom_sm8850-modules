@@ -1301,6 +1301,9 @@ struct msm_drm_private {
 	struct list_head inactive_list;
 	struct mutex mm_lock;
 
+	/* What drm_device::struct_mutex guarded; the core dropped it in 6.18 */
+	struct mutex struct_mutex;
+
 	struct workqueue_struct *wq;
 
 	/* crtcs pending async atomic updates: */
@@ -1387,6 +1390,13 @@ struct msm_drm_private {
 	enum msm_disp_op disp_op;
 	struct msm_drm_hfi_private *hfi_priv;
 };
+
+static inline struct mutex *msm_struct_mutex(struct drm_device *dev)
+{
+	struct msm_drm_private *priv = dev->dev_private;
+
+	return &priv->struct_mutex;
+}
 
 /* get struct msm_kms * from drm_device * */
 #define ddev_to_msm_kms(D) ((D) && (D)->dev_private ? \

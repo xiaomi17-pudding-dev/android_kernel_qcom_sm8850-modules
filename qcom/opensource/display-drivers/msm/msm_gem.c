@@ -809,7 +809,7 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
 
 	mutex_lock(&msm_obj->lock);
 
-	WARN_ON(!mutex_is_locked(&obj->dev->struct_mutex));
+	WARN_ON(!mutex_is_locked(msm_struct_mutex(obj->dev)));
 
 	if (msm_obj->madv != __MSM_MADV_PURGED)
 		msm_obj->madv = madv;
