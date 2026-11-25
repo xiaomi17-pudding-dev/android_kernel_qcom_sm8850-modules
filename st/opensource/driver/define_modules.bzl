@@ -1,26 +1,22 @@
+load(":repo_paths.bzl", "modules_label", "soc_label")
 load("//build/kernel/kleaf:kernel.bzl", "ddk_module")
-load("//build/bazel_common_rules/dist:dist.bzl", "copy_to_dist_dir")
+load("@rules_pkg//pkg:install.bzl", "pkg_install")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
 
 def define_modules(target, variant):
     tv = "{}_{}".format(target, variant)
 
     copts = []
-    deps = select({
-        "//build/qcom_build_extensions:qtisocrepo_true": [
-            "//soc-repo:all_headers",
-            "//soc-repo:{}/drivers/pinctrl/qcom/pinctrl-msm".format(tv),
-        ],
-        "//build/qcom_build_extensions:qtisocrepo_false": ["//msm-kernel:all_headers"],
-    })
-    kernel_build = select({
-        "//build/qcom_build_extensions:qtisocrepo_true": "//soc-repo:{}_base_kernel".format(tv),
-        "//build/qcom_build_extensions:qtisocrepo_false": "//msm-kernel:{}".format(tv),
-    })
+    deps = [
+        soc_label("all_headers"),
+        soc_label("{}/drivers/pinctrl/qcom/pinctrl-msm".format(tv)),
+    ]
+    kernel_build = soc_label("{}_base_kernel".format(tv))
     if target == "sun":
         copts.append("-DNFC_SECURE_PERIPHERAL_ENABLED")
         deps += [
-            "//vendor/qcom/opensource/securemsm-kernel:smcinvoke_kernel_headers",
-            "//vendor/qcom/opensource/securemsm-kernel:{}_smcinvoke_dlkm".format(tv),
+            modules_label("qcom/opensource/securemsm-kernel:smcinvoke_kernel_headers"),
+            modules_label("qcom/opensource/securemsm-kernel:{}_smcinvoke_dlkm".format(tv)),
         ]
 
     if target == "malabar":
@@ -30,8 +26,8 @@ def define_modules(target, variant):
         copts.append("-DCONFIG_NFC_BOB1")
         copts.append("-DNFC_SECURE_PERIPHERAL_ENABLED")
         deps += [
-            "//vendor/qcom/opensource/securemsm-kernel:smcinvoke_kernel_headers",
-            "//vendor/qcom/opensource/securemsm-kernel:{}_smcinvoke_dlkm".format(tv),
+            modules_label("qcom/opensource/securemsm-kernel:smcinvoke_kernel_headers"),
+            modules_label("qcom/opensource/securemsm-kernel:{}_smcinvoke_dlkm".format(tv)),
         ]
 
     if target == "bengal":
@@ -58,12 +54,15 @@ def define_modules(target, variant):
         visibility = ["//visibility:public"],
     )
 
-    copy_to_dist_dir(
-        name = "{}_stm_nfc_i2c_dist".format(tv),
-        data = [":{}_stm_nfc_i2c".format(tv)],
-        dist_dir = "out/target/product/{}/dlkm/lib/modules/".format(target),
-        flat = True,
-        wipe_dist_dir = False,
-        allow_duplicate_filenames = False,
-        mode_overrides = {"**/*": "644"},
+    pkg_files(
+        name = "{tv}_stm_nfc_i2c_dist_files".format(tv = tv),
+        srcs = [":{tv}_stm_nfc_i2c".format(tv = tv)],
+        visibility = ["//visibility:private"],
+        strip_prefix = strip_prefix.files_only(),
+    )
+
+    pkg_install(
+        name = "{tv}_stm_nfc_i2c_dist".format(tv = tv),
+        srcs = [":{tv}_stm_nfc_i2c_dist_files".format(tv = tv)],
+        destdir = "out/target/product/{}/dlkm/lib/modules/".format(target),
     )
