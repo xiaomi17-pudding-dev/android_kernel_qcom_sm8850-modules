@@ -339,6 +339,8 @@ int hfi_core_cmds_rx_buf_get(struct hfi_core_session *hfi_session,
 int hfi_core_cmds_tx_buf_send(struct hfi_core_session *hfi_session,
 	struct hfi_core_cmds_buf_desc **buff_desc, u32 num_buff_desc,
 	u32 flags);
+int hfi_core_cmds_tx_device_buf_send(struct hfi_core_session *hfi_session,
+	struct hfi_core_cmds_buf_desc **buff_desc, u32 num_buff_desc, u32 flags);
 
 /**
  * hfi_core_release_rx_buffer() - Release the hfi rx buffer.
@@ -481,6 +483,12 @@ static inline int hfi_core_cmds_tx_buf_send(
 	struct hfi_core_session *hfi_session,
 	struct hfi_core_cmds_buf_desc **buff_desc,
 	u32 num_buff_desc, u32 flags)
+{
+	return -EINVAL;
+}
+
+static inline int hfi_core_cmds_tx_device_buf_send(struct hfi_core_session *hfi_session,
+	struct hfi_core_cmds_buf_desc **buff_desc, u32 num_buff_desc, u32 flags)
 {
 	return -EINVAL;
 }

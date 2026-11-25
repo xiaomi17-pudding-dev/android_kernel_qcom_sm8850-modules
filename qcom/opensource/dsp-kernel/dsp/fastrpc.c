@@ -7144,7 +7144,7 @@ union fastrpc_dev_param {
 	* Return: 0 on success.
 	*
 	*/
-long fastrpc_dev_map_dma(struct fastrpc_device *dev,
+static long fastrpc_dev_map_dma(struct fastrpc_device *dev,
 			unsigned long invoke_param)
 {
 	int err = 0;
@@ -7269,7 +7269,7 @@ error:
 	* Return: 0 on success.
 	*
 	*/
-long fastrpc_dev_unmap_dma(struct fastrpc_device *dev,
+static long fastrpc_dev_unmap_dma(struct fastrpc_device *dev,
 			unsigned long invoke_param)
 {
 	int err = 0;
@@ -7383,7 +7383,7 @@ error:
 	* Return: void.
 	*
 	*/
-long fastrpc_dev_get_hlos_pid(struct fastrpc_device *dev,
+static long fastrpc_dev_get_hlos_pid(struct fastrpc_device *dev,
 			unsigned long invoke_param)
 {
 	int err = 0;

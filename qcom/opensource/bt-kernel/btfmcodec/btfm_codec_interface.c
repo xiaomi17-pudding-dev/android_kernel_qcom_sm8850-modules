@@ -378,7 +378,7 @@ static void btfmcodec_dai_shutdown(struct snd_pcm_substream *substream,
 	}
 }
 
-int btfmcodec_hwep_hw_params (struct btfmcodec_data *btfmcodec, uint32_t bps,
+static int btfmcodec_hwep_hw_params(struct btfmcodec_data *btfmcodec, uint32_t bps,
 			      uint32_t direction, uint8_t num_channels)
 {
 	struct hwep_data *hwep_info = btfmcodec->hwep_info;
@@ -730,11 +730,11 @@ static int btfmcodec_dai_prepare(struct snd_pcm_substream *substream,
 }
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 10, 0)
-int btfmcodec_hwep_set_channel_map(void *hwep_info, unsigned int tx_num,
+static int btfmcodec_hwep_set_channel_map(void *hwep_info, unsigned int tx_num,
 				const unsigned int *tx_slot, unsigned int rx_num,
 				const unsigned int *rx_slot)
 #else
-int btfmcodec_hwep_set_channel_map(void *hwep_info, unsigned int tx_num,
+static int btfmcodec_hwep_set_channel_map(void *hwep_info, unsigned int tx_num,
 				unsigned int *tx_slot, unsigned int rx_num,
 				unsigned int *rx_slot)
 #endif

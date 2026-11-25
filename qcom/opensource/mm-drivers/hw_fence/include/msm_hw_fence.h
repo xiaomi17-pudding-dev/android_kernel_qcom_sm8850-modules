@@ -586,6 +586,7 @@ int msm_hw_fence_update_txq_error(void *client_handle, u64 handle, u32 error, u3
  */
 int msm_hw_fence_trigger_signal(void *client_handle, u32 tx_client_id, u32 rx_client_id,
 	u32 signal_id);
+int msm_hw_fence_driver_doorbell_sim(u64 db_mask);
 
 /**
  * msm_hw_fence_register_error_cb() - Register callback to be dispatched when
@@ -677,6 +678,11 @@ static inline int msm_hw_fence_update_txq_error(void *client_handle, u64 handle,
 
 static inline int msm_hw_fence_trigger_signal(void *client_handle, u32 tx_client_id,
 	u32 rx_client_id, u32 signal_id)
+{
+	return -EINVAL;
+}
+
+static inline int msm_hw_fence_driver_doorbell_sim(u64 db_mask)
 {
 	return -EINVAL;
 }

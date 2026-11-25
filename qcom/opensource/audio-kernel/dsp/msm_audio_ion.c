@@ -32,6 +32,7 @@
 #include <linux/firmware/qcom/qcom_scm.h>
 #include <soc/qcom/secure_buffer.h>
 #include <linux/of.h>
+#include "q6_init.h"
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 13, 0))
 MODULE_IMPORT_NS("DMA_BUF");
@@ -394,7 +395,7 @@ err:
 	return rc;
 }
 
-void msm_audio_fd_list_debug(void)
+static void __maybe_unused msm_audio_fd_list_debug(void)
 {
 	struct msm_audio_fd_data *msm_audio_fd_data = NULL;
 

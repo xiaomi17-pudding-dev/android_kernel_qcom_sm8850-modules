@@ -349,7 +349,7 @@ static int _get_debugfs_input_client(struct file *file,
 	return client_id;
 }
 
-struct dbg_client_data *_get_client_node(struct hfi_core_drv_data *drv_data,
+static struct dbg_client_data *_get_client_node(struct hfi_core_drv_data *drv_data,
 	u32 client_id)
 {
 	struct dbg_client_data *node = NULL;

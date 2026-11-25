@@ -53,6 +53,10 @@ struct regmap *__devm_regmap_init_swr(struct swr_device *dev,
 				      const struct regmap_config *config,
 				      struct lock_class_key *lock_key,
 				      const char *lock_name);
+struct regmap *__regmap_init_swr(struct swr_device *swr,
+				 const struct regmap_config *config,
+				 struct lock_class_key *lock_key,
+				 const char *lock_name);
 
 /**
  * regmap_init_swr(): Initialise register map

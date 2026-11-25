@@ -67,7 +67,7 @@ EXPORT_SYMBOL(notification_to_schedule_wq);
 /**
  * FTrace logging
  */
-void spi_cnss_trace_log(struct device *dev, const char *fmt, ...)
+static void spi_cnss_trace_log(struct device *dev, const char *fmt, ...)
 {
 	struct va_format vaf = {
 				.fmt = fmt,

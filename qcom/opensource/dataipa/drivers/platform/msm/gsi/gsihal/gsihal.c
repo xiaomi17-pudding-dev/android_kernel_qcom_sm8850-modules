@@ -4,6 +4,7 @@
 * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 */
 
+#include "gsihal.h"
 #include "gsihal_i.h"
 #include "gsihal_reg.h"
 
