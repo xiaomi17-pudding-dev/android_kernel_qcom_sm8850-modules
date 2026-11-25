@@ -32,6 +32,10 @@ struct rmnet_ctl_client_if {
 };
 
 #ifdef CONFIG_RMNET_LA_PLATFORM
+/* Exported by rmnet_ctl; clients use the rmnet_ctl_if() ops */
+void *rmnet_ctl_register_client(struct rmnet_ctl_client_hooks *hook);
+int rmnet_ctl_send_client(void *handle, struct sk_buff *skb);
+int rmnet_ctl_unregister_client(void *handle);
 struct rmnet_ctl_client_if *rmnet_ctl_if(void);
 int rmnet_ctl_get_stats(u64 *s, int n);
 #else
