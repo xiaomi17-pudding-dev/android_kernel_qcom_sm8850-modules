@@ -112,7 +112,7 @@ static void __maybe_unused sde_rot_crop_rect(struct sde_rect *src_rect,
  *
  * Returns 1 if the rects are same, 0 otherwise.
  */
-static int sde_rect_cmp(struct sde_rect *rect1, struct sde_rect *rect2)
+static int __maybe_unused sde_rect_cmp(struct sde_rect *rect1, struct sde_rect *rect2)
 {
 	return rect1->x == rect2->x && rect1->y == rect2->y &&
 	       rect1->w == rect2->w && rect1->h == rect2->h;
@@ -125,7 +125,7 @@ static int sde_rect_cmp(struct sde_rect *rect1, struct sde_rect *rect2)
  *
  * Returns true if rects overlap, false otherwise.
  */
-static bool sde_rect_overlap_check(struct sde_rect *rect1, struct sde_rect *rect2)
+static bool __maybe_unused sde_rect_overlap_check(struct sde_rect *rect1, struct sde_rect *rect2)
 {
 	u32 rect1_left = rect1->x, rect1_right = rect1->x + rect1->w;
 	u32 rect1_top = rect1->y, rect1_bottom = rect1->y + rect1->h;

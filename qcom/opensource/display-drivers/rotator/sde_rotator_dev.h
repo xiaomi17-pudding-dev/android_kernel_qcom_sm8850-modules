@@ -256,4 +256,8 @@ struct sde_rot_mgr *sde_rot_mgr_from_device(struct device *dev)
 
 void sde_rotator_pm_qos_add(struct sde_rot_data_type *rot_mdata);
 
+/* Called from msm_drv.c, which declares them in msm_drv.h */
+void sde_rotator_register(void);
+void sde_rotator_unregister(void);
+
 #endif /* __SDE_ROTATOR_DEV_H__ */

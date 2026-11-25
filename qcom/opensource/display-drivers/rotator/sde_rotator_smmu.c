@@ -26,7 +26,6 @@
 #include "sde_rotator_io_util.h"
 #include "sde_rotator_smmu.h"
 #include "sde_rotator_debug.h"
-#include "msm_drv.h"
 #include <linux/of_device.h>
 
 #define SMMU_SDE_ROT_SEC	"qcom,smmu_sde_rot_sec"

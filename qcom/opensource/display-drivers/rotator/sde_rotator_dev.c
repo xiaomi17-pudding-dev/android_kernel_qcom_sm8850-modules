@@ -27,7 +27,6 @@
 #include "sde_rotator_dev.h"
 #include "sde_rotator_debug.h"
 #include "sde_rotator_trace.h"
-#include "msm_drv.h"
 
 /* Start v4l2 device number (default allocation) */
 #define SDE_ROTATOR_BASE_DEVICE_NUMBER	-1
