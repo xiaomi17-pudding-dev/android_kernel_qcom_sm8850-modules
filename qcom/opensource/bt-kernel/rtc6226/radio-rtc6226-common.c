@@ -1595,7 +1595,7 @@ static unsigned int rtc6226_fops_poll(struct file *file,
 }
 
 /* static */
-static int rtc6226_vidioc_g_ctrl(struct file *file, void *priv,
+static int __maybe_unused rtc6226_vidioc_g_ctrl(struct file *file, void *priv,
 	struct v4l2_control *ctrl)
 {
 	struct rtc6226_device *radio = video_drvdata(file);
@@ -1794,7 +1794,7 @@ static bool rtc6226_is_valid_srch_mode(int srch_mode)
 /*
  * rtc6226_vidioc_s_ctrl - set the value of a control
  */
-static int rtc6226_vidioc_s_ctrl(struct file *file, void *priv,
+static int __maybe_unused rtc6226_vidioc_s_ctrl(struct file *file, void *priv,
 	struct v4l2_control *ctrl)
 {
 	struct rtc6226_device *radio = video_drvdata(file);
