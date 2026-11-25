@@ -21,6 +21,8 @@
 #include <linux/of.h>
 #include <linux/version.h>
 
+#include "msm_drv.h"
+
 #define CLASS_NAME "hdcp"
 #define DRIVER_NAME "msm_hdcp"
 
