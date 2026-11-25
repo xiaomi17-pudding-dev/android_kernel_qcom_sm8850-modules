@@ -31,7 +31,7 @@ ddk_headers(
         "dsp/**/*.h",
         "ipc/**/*.h",
         "soc/**/*.h"
-    ])
+    ], allow_empty = True)
 )
 ddk_headers(
     name = "audio_configs",

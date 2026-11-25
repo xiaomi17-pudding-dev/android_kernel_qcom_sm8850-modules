@@ -55,14 +55,13 @@ ddk_headers(
 ddk_headers(
     name = "hdcp_qseecom_dlkm",
     hdrs = glob([
-        ":smcinvoke_kernel_headers",
         "linux/*.h",
         "include/linux/*h",
         "include/smci/uid/*h",
         "include/smci/interface/*h",
         "linux/misc/*.h",
         "config/*.h",
-    ]),
+    ], allow_empty = True),
     includes = [
         ".",
         "config",

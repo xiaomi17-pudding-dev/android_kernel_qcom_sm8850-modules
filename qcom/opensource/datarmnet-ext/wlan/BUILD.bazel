@@ -32,7 +32,7 @@ ddk_headers(
     name = "rmnet_wlan_include_headers",
     hdrs = glob([
         "include/linux/*.h",
-    ]),
+    ], allow_empty = True),
     includes = [
         "include",
         "include/linux",
