@@ -713,7 +713,7 @@ static void cs35l43_ignore_suspend_widgets(struct snd_soc_component *component)
 	}
 }
 
-int cs35l43_apply_calibration(struct snd_soc_dapm_widget *w)
+static int cs35l43_apply_calibration(struct snd_soc_dapm_widget *w)
 {
     int ret = 0;
 
@@ -2690,7 +2690,7 @@ static int cs35l43_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
 	dev_dbg(cs35l43->dev, "%s: fmt = 0x%x\n", __func__, fmt);
 
 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-	case SND_SOC_DAIFMT_CBS_CFS:
+	case SND_SOC_DAIFMT_CBC_CFC:
 		break;
 	default:
 		dev_warn(cs35l43->dev,
@@ -2850,7 +2850,7 @@ static int cs35l43_pcm_startup(struct snd_pcm_substream *substream,
 
 	dev_dbg(cs35l43->dev, "%s\n", __func__);
 
-	cs35l43_set_dai_fmt(dai, SND_SOC_DAIFMT_CBS_CFS|SND_SOC_DAIFMT_DSP_A);
+	cs35l43_set_dai_fmt(dai, SND_SOC_DAIFMT_CBC_CFC|SND_SOC_DAIFMT_DSP_A);
 	if (substream->runtime)
 		return snd_pcm_hw_constraint_list(substream->runtime, 0,
 				SNDRV_PCM_HW_PARAM_RATE, &cs35l43_constraints);
@@ -2938,7 +2938,7 @@ static int cs35l43_dai_set_sysclk(struct snd_soc_dai *dai,
 	return 0;
 }
 
-int cs35l43_component_write(struct snd_soc_component *component,
+static int cs35l43_component_write(struct snd_soc_component *component,
 				unsigned int reg, unsigned int val)
 {
 	struct cs35l43_private *cs35l43 =
@@ -2952,7 +2952,7 @@ int cs35l43_component_write(struct snd_soc_component *component,
 	return ret;
 }
 
-unsigned int cs35l43_component_read(struct snd_soc_component *component,
+static unsigned int cs35l43_component_read(struct snd_soc_component *component,
 				unsigned int reg)
 {
 	struct cs35l43_private *cs35l43 =
@@ -3772,4 +3772,4 @@ int mievent_report(unsigned int eventid,const char *value,struct device *dev, co
 MODULE_DESCRIPTION("ASoC CS35L43 driver");
 MODULE_AUTHOR("David Rhodes, Cirrus Logic Inc, <david.rhodes@cirrus.com>");
 MODULE_LICENSE("GPL");
-MODULE_IMPORT_NS(FW_CS_DSP);
+MODULE_IMPORT_NS("FW_CS_DSP");
