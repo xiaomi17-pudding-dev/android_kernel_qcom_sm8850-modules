@@ -5,6 +5,8 @@
  */
 
 #define pr_fmt(fmt)	"mi-dsi-panel:[%s:%d] " fmt, __func__, __LINE__
+#include <linux/interrupt.h>
+#include <linux/irq.h>
 #include <linux/delay.h>
 #include <linux/slab.h>
 #include <linux/gpio.h>
@@ -20,7 +22,6 @@
 #include <drm/mi_disp.h>
 #include <linux/soc/qcom/panel_event_notifier.h>
 #include <linux/soc/qcom/smem.h>
-#include "kernel/irq/internals.h"
 
 #include "dsi_panel.h"
 #include "dsi_display.h"
@@ -359,7 +360,6 @@ int mi_dsi_panel_esd_irq_ctrl_locked(struct dsi_panel *panel,
 				bool enable)
 {
 	struct mi_dsi_panel_cfg *mi_cfg;
-	struct irq_desc *desc;
 
 	if (!panel || !panel->panel_initialized) {
 		DISP_ERROR("Panel not ready!\n");
@@ -371,9 +371,17 @@ int mi_dsi_panel_esd_irq_ctrl_locked(struct dsi_panel *panel,
 		if (mi_cfg->esd_err_irq) {
 			if (enable) {
 				if (!mi_cfg->esd_err_enabled) {
-					desc = irq_to_desc(mi_cfg->esd_err_irq);
-					if (!irq_settings_is_level(desc))
-						desc->istate &= ~IRQS_PENDING;
+					/*
+					 * Drop an edge latched while the panel was off,
+					 * so it is not taken as an ESD error. The IRQ is
+					 * disabled unlazily (see mi_sde_connector), so
+					 * the core holds no pending edge to replay.
+					 */
+					if (irq_get_trigger_type(mi_cfg->esd_err_irq) &
+					    IRQ_TYPE_EDGE_BOTH)
+						irq_set_irqchip_state(mi_cfg->esd_err_irq,
+								      IRQCHIP_STATE_PENDING,
+								      false);
 					enable_irq_wake(mi_cfg->esd_err_irq);
 					enable_irq(mi_cfg->esd_err_irq);
 					mi_cfg->esd_err_enabled = true;

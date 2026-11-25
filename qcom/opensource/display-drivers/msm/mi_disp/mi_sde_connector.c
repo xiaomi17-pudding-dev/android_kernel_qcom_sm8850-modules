@@ -6,6 +6,8 @@
 
 #define pr_fmt(fmt) "mi_sde_connector:[%s:%d] " fmt, __func__, __LINE__
 
+#include <linux/interrupt.h>
+#include <linux/irq.h>
 #include <drm/sde_drm.h>
 #include "msm_drv.h"
 #include "sde_connector.h"
@@ -134,6 +136,9 @@ int mi_sde_connector_register_esd_irq(struct sde_connector *c_conn)
 			} else {
 				DISP_INFO("%s display register esd irq success\n",
 					display->display_type);
+				/* mask in the chip on disable: no replay of stale edges */
+				irq_set_status_flags(display->panel->mi_cfg.esd_err_irq,
+						     IRQ_DISABLE_UNLAZY);
 				disable_irq(display->panel->mi_cfg.esd_err_irq);
 			}
 #ifdef CONFIG_VIS_DISPLAY
