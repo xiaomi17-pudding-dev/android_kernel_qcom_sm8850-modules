@@ -1583,7 +1583,7 @@ static int rmnet_shs_drop_backlog(struct sk_buff_head *list, int cpu)
 			dev_core_stats_rx_dropped_inc(skb->dev);
 #if (KERNEL_VERSION(6, 9, 0) <= LINUX_VERSION_CODE)
 			rps_input_queue_head_incr(sd);
-			atomic_inc(&sd->dropped);
+			numa_drop_add(&sd->drop_counters, 1);
 #else
 			input_queue_head_incr(sd);
 			sd->dropped++;
