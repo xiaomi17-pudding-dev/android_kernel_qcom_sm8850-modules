@@ -1109,7 +1109,7 @@ static QDF_STATUS hdd_create_chandef(struct hdd_adapter *adapter,
 }
 
 #ifdef WLAN_FEATURE_11BE_MLO
-QDF_STATUS wlan_hdd_get_standby_channel(struct wlan_hdd_link_info *link_info,
+static QDF_STATUS wlan_hdd_get_standby_channel(struct wlan_hdd_link_info *link_info,
 					struct wlan_channel *chan)
 {
 	struct wlan_mlo_dev_context *ml_dev_ctx;
@@ -1160,7 +1160,7 @@ static uint16_t wlan_hdd_get_link_id_from_sta_ctx(
 
 #else
 static inline
-QDF_STATUS wlan_hdd_get_standby_channel(struct wlan_hdd_link_info *link_info,
+static QDF_STATUS wlan_hdd_get_standby_channel(struct wlan_hdd_link_info *link_info,
 					struct wlan_channel *chan)
 {
 	return QDF_STATUS_E_INVAL;
