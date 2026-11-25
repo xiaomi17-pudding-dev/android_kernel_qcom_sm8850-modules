@@ -3237,7 +3237,7 @@ static int __cam_req_mgr_try_cancel_req(struct cam_req_mgr_core_link *link,
  *
  * @return: 0 on success.
  */
-int cam_req_mgr_process_flush_req(void *priv, void *data)
+static int cam_req_mgr_process_flush_req(void *priv, void *data)
 {
 	int                                  rc = 0;
 	struct cam_req_mgr_flush_info       *flush_info = NULL;
@@ -3495,7 +3495,7 @@ end:
  *
  * @return: 0 on success.
  */
-int cam_req_mgr_process_add_req(void *priv, void *data)
+static int cam_req_mgr_process_add_req(void *priv, void *data)
 {
 	int                                  rc = 0, i;
 	int                                  idx, next_idx = 0;

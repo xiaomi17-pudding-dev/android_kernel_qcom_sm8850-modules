@@ -12,6 +12,7 @@
 #endif
 
 #include "resources.h"
+#include "resources_ext.h"
 #include "msm_vidc_core.h"
 #include "msm_vidc_debug.h"
 #include "msm_vidc_power.h"
