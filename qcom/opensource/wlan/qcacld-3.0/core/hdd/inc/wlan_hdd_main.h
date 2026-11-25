@@ -6315,4 +6315,15 @@ static inline void hdd_lpc_disable_powersave(struct hdd_context *hdd_ctx)
 {
 }
 #endif
+/**
+ * hdd_wdev_get_netdev() - net device of a wireless device
+ * @wdev: wireless device the cfg80211 op is called for
+ *
+ * Return: the net device, or NULL for a wireless device without one
+ */
+static inline struct net_device *hdd_wdev_get_netdev(struct wireless_dev *wdev)
+{
+	return wdev ? wdev->netdev : NULL;
+}
+
 #endif /* end #if !defined(WLAN_HDD_MAIN_H) */

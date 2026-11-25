@@ -36958,6 +36958,101 @@ int wlan_hdd_cfg80211_set_action_oui(struct wiphy *wiphy,
 }
 #endif
 
+#if defined(CFG80211_KEY_OPS_ON_WDEV) && defined(CFG80211_MLO_KEY_OPERATION_SUPPORT)
+/*
+ * The key ops take the wireless device instead of the net device; the key
+ * handling still works on the net device.
+ */
+static int wlan_hdd_cfg80211_add_key_wdev(struct wiphy *wiphy,
+					  struct wireless_dev *wdev,
+					  int link_id, u8 key_index,
+					  bool pairwise, const u8 *mac_addr,
+					  struct key_params *params)
+{
+	struct net_device *ndev = hdd_wdev_get_netdev(wdev);
+
+	if (!ndev)
+		return -EINVAL;
+
+	return wlan_hdd_cfg80211_add_key(wiphy, ndev, link_id, key_index,
+					 pairwise, mac_addr, params);
+}
+
+static int wlan_hdd_cfg80211_get_key_wdev(struct wiphy *wiphy,
+					  struct wireless_dev *wdev,
+					  int link_id, u8 key_index,
+					  bool pairwise, const u8 *mac_addr,
+					  void *cookie,
+					  void (*callback)(void *cookie,
+							   struct key_params *))
+{
+	struct net_device *ndev = hdd_wdev_get_netdev(wdev);
+
+	if (!ndev)
+		return -EINVAL;
+
+	return wlan_hdd_cfg80211_get_key(wiphy, ndev, link_id, key_index,
+					 pairwise, mac_addr, cookie, callback);
+}
+
+static int wlan_hdd_cfg80211_del_key_wdev(struct wiphy *wiphy,
+					  struct wireless_dev *wdev,
+					  int link_id, u8 key_index,
+					  bool pairwise, const u8 *mac_addr)
+{
+	struct net_device *ndev = hdd_wdev_get_netdev(wdev);
+
+	if (!ndev)
+		return -EINVAL;
+
+	return wlan_hdd_cfg80211_del_key(wiphy, ndev, link_id, key_index,
+					 pairwise, mac_addr);
+}
+
+static int wlan_hdd_set_default_mgmt_key_wdev(struct wiphy *wiphy,
+					      struct wireless_dev *wdev,
+					      int link_id, u8 key_index)
+{
+	struct net_device *ndev = hdd_wdev_get_netdev(wdev);
+
+	if (!ndev)
+		return -EINVAL;
+
+	return wlan_hdd_set_default_mgmt_key(wiphy, ndev, link_id, key_index);
+}
+
+static int
+wlan_hdd_cfg80211_set_default_beacon_key_wdev(struct wiphy *wiphy,
+					      struct wireless_dev *wdev,
+					      int link_id, u8 key_index)
+{
+	struct net_device *ndev = hdd_wdev_get_netdev(wdev);
+
+	if (!ndev)
+		return -EINVAL;
+
+	return wlan_hdd_cfg80211_set_default_beacon_key(wiphy, ndev, link_id,
+							key_index);
+}
+#endif
+
+#ifdef CFG80211_ROC_RX_ADDR
+static int
+wlan_hdd_cfg80211_remain_on_channel_rx_addr(struct wiphy *wiphy,
+					    struct wireless_dev *wdev,
+					    struct ieee80211_channel *chan,
+					    unsigned int duration,
+					    u64 *cookie, const u8 *rx_addr)
+{
+	/* Listening on an additional receive address is not supported */
+	if (rx_addr)
+		return -EOPNOTSUPP;
+
+	return wlan_hdd_cfg80211_remain_on_channel(wiphy, wdev, chan, duration,
+						   cookie);
+}
+#endif
+
 static struct cfg80211_ops wlan_hdd_cfg80211_ops = {
 	.add_virtual_intf = wlan_hdd_add_virtual_intf,
 	.del_virtual_intf = wlan_hdd_del_virtual_intf,
@@ -36967,9 +37062,15 @@ static struct cfg80211_ops wlan_hdd_cfg80211_ops = {
 	.change_beacon = wlan_hdd_cfg80211_change_beacon,
 	.stop_ap = wlan_hdd_cfg80211_stop_ap,
 	.change_bss = wlan_hdd_cfg80211_change_bss,
+#if defined(CFG80211_KEY_OPS_ON_WDEV) && defined(CFG80211_MLO_KEY_OPERATION_SUPPORT)
+	.add_key = wlan_hdd_cfg80211_add_key_wdev,
+	.get_key = wlan_hdd_cfg80211_get_key_wdev,
+	.del_key = wlan_hdd_cfg80211_del_key_wdev,
+#else
 	.add_key = wlan_hdd_cfg80211_add_key,
 	.get_key = wlan_hdd_cfg80211_get_key,
 	.del_key = wlan_hdd_cfg80211_del_key,
+#endif
 	.set_default_key = wlan_hdd_cfg80211_set_default_key,
 	.scan = wlan_hdd_cfg80211_scan,
 	.connect = wlan_hdd_cfg80211_connect,
@@ -36977,14 +37078,23 @@ static struct cfg80211_ops wlan_hdd_cfg80211_ops = {
 	.set_wiphy_params = wlan_hdd_cfg80211_set_wiphy_params,
 	.set_tx_power = wlan_hdd_cfg80211_set_txpower,
 	.get_tx_power = wlan_hdd_cfg80211_get_txpower,
+#ifdef CFG80211_ROC_RX_ADDR
+	.remain_on_channel = wlan_hdd_cfg80211_remain_on_channel_rx_addr,
+#else
 	.remain_on_channel = wlan_hdd_cfg80211_remain_on_channel,
+#endif
 	.cancel_remain_on_channel = wlan_hdd_cfg80211_cancel_remain_on_channel,
 	.mgmt_tx = wlan_hdd_mgmt_tx,
 	.mgmt_tx_cancel_wait = wlan_hdd_cfg80211_mgmt_tx_cancel_wait,
+#if defined(CFG80211_KEY_OPS_ON_WDEV) && defined(CFG80211_MLO_KEY_OPERATION_SUPPORT)
+	.set_default_mgmt_key = wlan_hdd_set_default_mgmt_key_wdev,
+	.set_default_beacon_key = wlan_hdd_cfg80211_set_default_beacon_key_wdev,
+#else
 	.set_default_mgmt_key = wlan_hdd_set_default_mgmt_key,
 #if defined (CFG80211_BIGTK_CONFIGURATION_SUPPORT) || \
 	    (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 7, 0))
 	.set_default_beacon_key = wlan_hdd_cfg80211_set_default_beacon_key,
+#endif
 #endif
 	.set_txq_params = wlan_hdd_set_txq_params,
 	.dump_station = wlan_hdd_cfg80211_dump_station,

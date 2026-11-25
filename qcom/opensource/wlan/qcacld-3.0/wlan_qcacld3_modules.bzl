@@ -2637,6 +2637,16 @@ def _define_module_for_target_variant_chipset(target, variant, chipset):
             "file": "include/net/cfg80211.h",
             "flag": "CFG80211_SETUP_LINK_RECONFIG_SUPPORT",
         },
+        {
+            "pattern": "(*add_key)(struct wiphy *wiphy, struct wireless_dev *wdev,",
+            "file": "include/net/cfg80211.h",
+            "flag": "CFG80211_KEY_OPS_ON_WDEV",
+        },
+        {
+            "pattern": "u64 *cookie, const u8 *rx_addr);",
+            "file": "include/net/cfg80211.h",
+            "flag": "CFG80211_ROC_RX_ADDR",
+        },
     ]
 
     cmd = 'touch "$@"\n'
