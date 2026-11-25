@@ -21,7 +21,6 @@
 #include <linux/spinlock.h>
 #include <linux/shmem_fs.h>
 #include <linux/dma-buf.h>
-#include <linux/pfn_t.h>
 #include <linux/version.h>
 #include <linux/vmalloc.h>
 #include <linux/module.h>
@@ -311,7 +310,7 @@ vm_fault_t msm_gem_fault(struct vm_fault *vmf)
 	VERB("Inserting %pK pfn %lx, pa %lx", (void *)vmf->address,
 			pfn, pfn << PAGE_SHIFT);
 
-	ret = vmf_insert_mixed(vma, vmf->address, __pfn_to_pfn_t(pfn, PFN_DEV));
+	ret = vmf_insert_mixed(vma, vmf->address, pfn);
 out_unlock:
 	mutex_unlock(&msm_obj->lock);
 out:
