@@ -66,6 +66,12 @@ extern long synx_columns;
 
 /* Used for accessing synx_test ioctl nodes*/
 extern const struct file_operations synx_test_fops;
+struct dma_fence;
+struct dma_fence_cb;
+
+void synx_test_fence_release(struct dma_fence *fence);
+void synx_dma_fence_callback(struct dma_fence *fence,
+	struct dma_fence_cb *cb);
 
 static inline char *synx_debug_str(int level)
 {

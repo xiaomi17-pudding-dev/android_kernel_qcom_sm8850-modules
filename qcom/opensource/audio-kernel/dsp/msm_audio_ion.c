@@ -32,7 +32,6 @@
 #include <linux/firmware/qcom/qcom_scm.h>
 #include <soc/qcom/secure_buffer.h>
 #include <linux/of.h>
-#include "q6_init.h"
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 13, 0))
 MODULE_IMPORT_NS("DMA_BUF");
@@ -1037,13 +1036,13 @@ static struct platform_driver msm_audio_ion_driver = {
 	.remove = msm_audio_ion_remove,
 };
 
-int __init msm_audio_ion_init(void)
+static int __init msm_audio_ion_init(void)
 {
 	pr_debug("%s: msm_audio_ion_init called \n",__func__);
 	return platform_driver_register(&msm_audio_ion_driver);
 }
 
-void msm_audio_ion_exit(void)
+static void msm_audio_ion_exit(void)
 {
 	platform_driver_unregister(&msm_audio_ion_driver);
 }

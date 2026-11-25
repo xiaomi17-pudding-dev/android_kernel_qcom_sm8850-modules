@@ -15,6 +15,7 @@
 #ifdef CONFIG_DEBUG_FS
 #include <linux/debugfs.h>
 #include <linux/uaccess.h>
+#include "internal.h"
 
 #define SWR_SLV_MAX_REG_ADDR    0x2009
 #define SWR_SLV_START_REG_ADDR  0x40

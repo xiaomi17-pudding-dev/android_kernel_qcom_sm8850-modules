@@ -341,4 +341,8 @@ int synx_internal_share_handle_status(struct synx_import_indv_params *params,
  */
 void *synx_internal_get_dma_fence(u32 h_synx);
 
+/* synx.c */
+void synx_external_callback(s32 sync_obj, int status, void *data);
+void synx_fence_release(struct dma_fence *fence);
+
 #endif /* __SYNX_PRIVATE_H__ */

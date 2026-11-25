@@ -272,7 +272,7 @@ int i2c_write(struct nfc_dev *nfc_dev, const char *buf, size_t count,
 	return ret;
 }
 
-ssize_t nfc_i2c_dev_read(struct file *filp, char __user *buf, size_t count,
+static ssize_t nfc_i2c_dev_read(struct file *filp, char __user *buf, size_t count,
 			 loff_t *offset)
 {
 	int ret;
@@ -306,7 +306,7 @@ ssize_t nfc_i2c_dev_read(struct file *filp, char __user *buf, size_t count,
 	return ret;
 }
 
-ssize_t nfc_i2c_dev_write(struct file *filp, const char __user *buf,
+static ssize_t nfc_i2c_dev_write(struct file *filp, const char __user *buf,
 			  size_t count, loff_t *offset)
 {
 	int ret;

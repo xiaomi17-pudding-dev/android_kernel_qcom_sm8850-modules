@@ -849,7 +849,7 @@ static struct platform_driver smmu_proxy_driver = {
 	},
 };
 
-int __init init_smmu_proxy_driver(void)
+static int __init init_smmu_proxy_driver(void)
 {
 	int ret;
 	struct csf_version csf_version;

@@ -437,6 +437,7 @@ int msm_vidc_set_gop_size(void *instance, enum msm_vidc_inst_capability_type cap
 int msm_vidc_set_bitrate(void *instance, enum msm_vidc_inst_capability_type cap_id);
 int msm_vidc_set_layer_bitrate(void *instance, enum msm_vidc_inst_capability_type cap_id);
 int msm_vidc_set_u32(void *instance, enum msm_vidc_inst_capability_type cap_id);
+int msm_vidc_set_s32(void *instance, enum msm_vidc_inst_capability_type cap_id);
 int msm_vidc_set_u32_packed(void *instance, enum msm_vidc_inst_capability_type cap_id);
 int msm_vidc_set_u32_enum(void *instance, enum msm_vidc_inst_capability_type cap_id);
 int msm_vidc_set_constant_quality(void *instance, enum msm_vidc_inst_capability_type cap_id);
