@@ -201,7 +201,10 @@ static int syna_spi_request_gpio(int gpio, bool config, int dir,
 			return retval;
 		}
 #ifdef DEV_MANAGED_API
-		retval = devm_gpio_request(dev, gpio, label);
+		retval = devm_gpio_request_one(dev, gpio,
+				dir == 0 ? GPIOF_IN :
+				(state ? GPIOF_OUT_INIT_HIGH : GPIOF_OUT_INIT_LOW),
+				label);
 #else /* Legacy API */
 		retval = gpio_request(gpio, label);
 #endif

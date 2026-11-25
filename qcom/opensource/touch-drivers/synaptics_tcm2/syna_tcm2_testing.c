@@ -2312,6 +2312,11 @@ static int testing_copy_rawshift_diff_to_output(enum tcm_test_code testcode)
 	} else if(testing_hcd->test_item == TEST_PID86_RAWSHIFTTEST){
 		rawdiff = rawDiffPT86;
 		testing_hcd->result = result_pt86;
+	} else {
+		LOGE("Invalid test item for raw shift data: %d\n",
+			testing_hcd->test_item);
+		UNLOCK_BUFFER(testing_hcd->output);
+		return -EINVAL;
 	}
 
 	/* copy data content to the destination */
