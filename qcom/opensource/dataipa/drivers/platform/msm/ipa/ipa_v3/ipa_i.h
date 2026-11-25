@@ -3522,6 +3522,7 @@ int ipa_set_flt_rt_stats(int index, struct ipa_flt_rt_stats stats);
 bool ipa_get_fnr_info(struct ipacm_fnr_info *fnr_info);
 
 u32 ipa3_get_max_num_pipes(void);
+enum ipa_transport_type ipa3_get_transport_type(void);
 u32 ipa3_get_num_pipes(void);
 struct ipa_smmu_cb_ctx *ipa3_get_smmu_ctx(enum ipa_smmu_cb_type);
 struct iommu_domain *ipa3_get_smmu_domain(void);
