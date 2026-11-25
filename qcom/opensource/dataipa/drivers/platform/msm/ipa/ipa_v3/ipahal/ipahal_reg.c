@@ -8,6 +8,7 @@
 #include "ipa.h"
 #include <linux/kernel.h>
 #include <linux/msm_ipa.h>
+#include "ipahal.h"
 #include "ipahal_i.h"
 #include "ipahal_reg.h"
 #include "ipahal_reg_i.h"

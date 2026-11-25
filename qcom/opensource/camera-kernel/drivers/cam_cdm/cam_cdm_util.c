@@ -12,6 +12,7 @@
 #include "cam_cdm_intf_api.h"
 #include "cam_cdm_util.h"
 #include "cam_cdm.h"
+#include "cam_cdm_virtual.h"
 #include "cam_io_util.h"
 #include "cam_mem_mgr_api.h"
 
@@ -379,7 +380,7 @@ static uint32_t *cam_cdm_write_wait_event(uint32_t *pcmdbuffer, uint32_t iw,
 	return pcmdbuffer;
 }
 
-uint32_t *cam_cdm_write_changebase(uint32_t *pCmdBuffer, uint32_t base)
+static uint32_t *cam_cdm_write_changebase(uint32_t *pCmdBuffer, uint32_t base)
 {
 	struct cdm_changebase_cmd *pHeader =
 		(struct cdm_changebase_cmd *)pCmdBuffer;
@@ -393,7 +394,7 @@ uint32_t *cam_cdm_write_changebase(uint32_t *pCmdBuffer, uint32_t base)
 	return pCmdBuffer;
 }
 
-uint32_t *cam_cdm_write_wait_comp_event(
+static uint32_t *cam_cdm_write_wait_comp_event(
 	uint32_t *pCmdBuffer, uint32_t mask1, uint32_t mask2)
 {
 	struct cdm_wait_comp_event_cmd *pHeader =
@@ -408,7 +409,7 @@ uint32_t *cam_cdm_write_wait_comp_event(
 	return pCmdBuffer;
 }
 
-uint32_t *cam_cdm_write_clear_comp_event(
+static uint32_t *cam_cdm_write_clear_comp_event(
 	uint32_t *pCmdBuffer, uint32_t mask1, uint32_t mask2)
 {
 	struct cdm_clear_comp_event_cmd *pHeader =
@@ -423,7 +424,7 @@ uint32_t *cam_cdm_write_clear_comp_event(
 	return pCmdBuffer;
 }
 
-uint32_t *cam_cdm_write_wait_prefetch_disable(
+static uint32_t *cam_cdm_write_wait_prefetch_disable(
 	uint32_t                   *pCmdBuffer,
 	uint32_t                    id,
 	uint32_t                    mask1,
@@ -469,7 +470,7 @@ struct cam_cdm_utils_ops CDM170_ops = {
 	.cdm_write_wait_prefetch_disable      = cam_cdm_write_wait_prefetch_disable,
 };
 
-int cam_cdm_get_ioremap_from_base(uint32_t hw_base,
+static int cam_cdm_get_ioremap_from_base(uint32_t hw_base,
 	uint32_t base_array_size,
 	struct cam_soc_reg_map *base_table[CAM_SOC_MAX_BLOCK],
 	void __iomem **device_base)
