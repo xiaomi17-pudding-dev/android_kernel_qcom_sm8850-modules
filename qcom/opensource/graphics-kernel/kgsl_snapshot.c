@@ -9,6 +9,7 @@
 #include <linux/panic_notifier.h>
 #include <linux/slab.h>
 #include <linux/utsname.h>
+#include <linux/version.h>
 #include <linux/vmalloc.h>
 
 #include "adreno_cp_parser.h"
@@ -836,7 +837,11 @@ out:
 
 /* Dump the sysfs binary data to the user */
 static ssize_t snapshot_show(struct file *filep, struct kobject *kobj,
+#if (KERNEL_VERSION(6, 16, 0) > LINUX_VERSION_CODE)
 	struct bin_attribute *attr, char *buf, loff_t off,
+#else
+	const struct bin_attribute *attr, char *buf, loff_t off,
+#endif
 	size_t count)
 {
 	struct kgsl_device *device = kobj_to_device(kobj);
