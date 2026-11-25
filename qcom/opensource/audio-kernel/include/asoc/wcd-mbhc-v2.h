@@ -10,6 +10,8 @@
 #include <linux/power_supply.h>
 #include <linux/extcon.h>
 #include <linux/extcon-provider.h>
+#include <linux/interrupt.h>
+#include <sound/soc.h>
 #include "wcdcal-hwdep.h"
 #include <sound/jack.h>
 
