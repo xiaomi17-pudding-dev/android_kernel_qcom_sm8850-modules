@@ -16,6 +16,7 @@
 #include "mi_disp_print.h"
 #include "mi_dsi_display.h"
 #include "mi_disp_feature.h"
+#include "mi_disp_sysfs.h"
 
 #define to_disp_display(d) dev_get_drvdata(d)
 

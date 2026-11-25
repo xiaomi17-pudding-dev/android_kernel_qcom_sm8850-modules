@@ -16,6 +16,7 @@
 #include "mi_disp_core.h"
 #include "mi_disp_feature.h"
 #include "mi_dsi_display.h"
+#include "mi_disp_procfs.h"
 
 #if MI_DISP_PROCFS_ENABLE
 

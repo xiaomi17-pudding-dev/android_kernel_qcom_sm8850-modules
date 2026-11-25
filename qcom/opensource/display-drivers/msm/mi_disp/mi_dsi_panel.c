@@ -422,7 +422,7 @@ static void mi_disp_set_dimming_delayed_work_handler(struct kthread_work *work)
 	kfree(delayed_work);
 }
 
-int mi_dsi_panel_tigger_dimming_delayed_work(struct dsi_panel *panel)
+static int __maybe_unused mi_dsi_panel_tigger_dimming_delayed_work(struct dsi_panel *panel)
 {
 	int disp_id = 0;
 	struct disp_feature *df = mi_get_disp_feature();
@@ -521,7 +521,7 @@ bool is_hbm_fod_on(struct dsi_panel *panel)
 	return is_fod_on;
 }
 
-bool is_dc_on_skip_backlight(struct dsi_panel *panel, u32 bl_lvl)
+static bool is_dc_on_skip_backlight(struct dsi_panel *panel, u32 bl_lvl)
 {
 	struct mi_dsi_panel_cfg *mi_cfg = &panel->mi_cfg;
 
@@ -1522,7 +1522,7 @@ exit:
 	return rc;
 }
 
-int mi_dsi_panel_update_dc_param_P2(struct dsi_panel *panel, enum dsi_cmd_set_type type, int bl_lvl) {
+static int mi_dsi_panel_update_dc_param_P2(struct dsi_panel *panel, enum dsi_cmd_set_type type, int bl_lvl) {
 	int rc = 0;
 	int i = 0;
 	u8 cmd_update_index = 0;
@@ -3067,4 +3067,4 @@ ssize_t mi_dsi_panel_lockdown_info_read( unsigned char *plockdowninfo)
 }
 EXPORT_SYMBOL(mi_dsi_panel_lockdown_info_read);
 
-MODULE_IMPORT_NS(VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver);
+MODULE_IMPORT_NS("VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver");

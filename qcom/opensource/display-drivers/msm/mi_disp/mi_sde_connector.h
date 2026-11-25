@@ -37,5 +37,6 @@ void mi_sde_connector_send_emv_work_handler(struct kthread_work *work);
 int mi_sde_connector_send_emv_queue_work(struct drm_connector *connector);
 
 int mi_sde_connector_set_emv_buffer(struct sde_connector *c_conn, void __user *usr_ptr);
+int mi_sde_connector_get_dc_status(struct drm_connector *connector);
 
 #endif /* _MI_SDE_CONNECTOR_H_ */

@@ -14,6 +14,7 @@
 #include "dsi_panel.h"
 #include "dsi_parser.h"
 #include "mi_panel_id.h"
+#include "mi_disp_parser.h"
 #include <linux/soc/qcom/smem.h>
 
 #define DEFAULT_MAX_BRIGHTNESS_CLONE      ((1 << 14) -1)

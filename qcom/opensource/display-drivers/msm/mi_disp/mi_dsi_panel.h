@@ -385,4 +385,11 @@ int mi_dsi_panel_set_dbi_by_temperature_locked_P2_PB(struct dsi_panel *panel, in
 int mi_dsi_panel_set_dbi_by_temperature_Q200(struct dsi_panel *panel, int temp_val);
 int mi_dsi_panel_set_dbi_by_temperature_locked_Q200(struct dsi_panel *panel, int temp_val);
 
+int mi_dsi_panel_update_doze_cmd_locked(struct dsi_panel *panel, u8 value);
+
+/* exported for the touch drivers */
+void dsi_panel_gesture_enable(bool enable);
+void mi_display_gesture_callback_register(void (*cb)(void));
+ssize_t mi_dsi_panel_lockdown_info_read(unsigned char *plockdowninfo);
+
 #endif /* _MI_DSI_PANEL_H_ */
