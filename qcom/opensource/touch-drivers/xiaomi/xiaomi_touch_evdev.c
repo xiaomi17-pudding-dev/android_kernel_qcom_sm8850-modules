@@ -156,7 +156,7 @@ static int32_t event_show(struct seq_file *m, void *v)
 	return 0;
 }
 
-void event_stop(struct seq_file *m, void *v) {}
+static void event_stop(struct seq_file *m, void *v) {}
 
 const struct seq_operations last_touch_events_seq_ops = {
 	.start = event_start,

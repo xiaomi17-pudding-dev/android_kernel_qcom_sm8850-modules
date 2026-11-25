@@ -60,7 +60,7 @@ void sendnlmsg(char message)//char *message
 	}
 }
 
-void nl_data_ready(struct sk_buff *__skb)
+static void nl_data_ready(struct sk_buff *__skb)
 {
 	struct sk_buff *skb;
 	struct nlmsghdr *nlh;
@@ -76,7 +76,7 @@ void nl_data_ready(struct sk_buff *__skb)
 	LOG_INFO("netlink socket, pid =%d, msg = %d\n", pid, str[0]);
 }
 
-int netlink_init(void)
+static int netlink_init(void)
 {
 	struct netlink_kernel_cfg netlink_cfg;
 	memset(&netlink_cfg, 0, sizeof(struct netlink_kernel_cfg));
@@ -93,7 +93,7 @@ int netlink_init(void)
 	return 0;
 }
 
-void netlink_exit(void)
+static void netlink_exit(void)
 {
 	if (nl_sk != NULL) {
 		netlink_kernel_release(nl_sk);
