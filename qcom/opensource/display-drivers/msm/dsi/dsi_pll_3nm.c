@@ -10,6 +10,7 @@
 #include <linux/of.h>
 #include <linux/platform_device.h>
 #include "dsi_pll_3nm.h"
+#include "dsi_catalog.h"
 
 #define VCO_DELAY_USEC 1
 

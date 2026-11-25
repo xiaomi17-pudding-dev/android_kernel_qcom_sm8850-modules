@@ -27,6 +27,7 @@
 #include "sde_rotator_dev.h"
 #include "sde_rotator_debug.h"
 #include "sde_rotator_trace.h"
+#include "msm_drv.h"
 
 /* Start v4l2 device number (default allocation) */
 #define SDE_ROTATOR_BASE_DEVICE_NUMBER	-1
@@ -859,7 +860,7 @@ static int sde_rotator_queue_init(void *priv, struct vb2_queue *src_vq,
  * @file: Pointer to file struct (optional)
  * return: Pointer rotator context if success; ptr error code, otherwise.
  */
-struct sde_rotator_ctx *sde_rotator_ctx_open(
+static struct sde_rotator_ctx *sde_rotator_ctx_open(
 		struct sde_rotator_device *rot_dev, struct file *file)
 {
 	struct video_device *video = file ? video_devdata(file) : NULL;

@@ -357,7 +357,7 @@ static u64 rmnet_shs_wq_get_flow_avg_pps(struct rmnet_shs_wq_hstat_s *hnode)
 	return avg_pps;
 }
 
-void rmnet_shs_wq_update_hash_stats_debug(struct rmnet_shs_wq_hstat_s *hstats_p,
+static void rmnet_shs_wq_update_hash_stats_debug(struct rmnet_shs_wq_hstat_s *hstats_p,
 					  struct rmnet_shs_skbn_s *node_p)
 {
 	int idx = rmnet_shs_flow_dbg_stats_idx_cnt;
