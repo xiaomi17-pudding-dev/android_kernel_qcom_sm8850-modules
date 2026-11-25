@@ -1138,7 +1138,7 @@ void __iomem *cam_compat_ioremap(bool mem_block_rw_prop,
 	} else {
 #if KERNEL_VERSION(6, 15, 0) <= LINUX_VERSION_CODE
 		mem_base = ioremap_prot(mem_block_start, mem_block_size,
-		__pgprot((_PAGE_IOREMAP & ~PTE_WRITE) | PTE_RDONLY));
+		__pgprot((PROT_DEVICE_nGnRE & ~PTE_WRITE) | PTE_RDONLY));
 #else
 		mem_base = ioremap_prot(mem_block_start, mem_block_size,
 		(_PAGE_IOREMAP & ~PTE_WRITE) | PTE_RDONLY);
