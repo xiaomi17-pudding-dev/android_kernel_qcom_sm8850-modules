@@ -44,7 +44,7 @@ int cam_jpeg_enc_init_hw(void *device_priv,
 	struct cam_jpeg_enc_device_core_info *core_info = NULL;
 	struct cam_ahb_vote ahb_vote;
 	struct cam_axi_vote axi_vote = {0};
-	unsigned long flags = 0;
+	unsigned long flags;
 	int rc;
 
 	if (!device_priv) {
@@ -118,7 +118,7 @@ int cam_jpeg_enc_deinit_hw(void *device_priv,
 	struct cam_hw_info *jpeg_enc_dev = device_priv;
 	struct cam_hw_soc_info *soc_info = NULL;
 	struct cam_jpeg_enc_device_core_info *core_info = NULL;
-	unsigned long flags = 0;
+	unsigned long flags;
 	int rc;
 
 	if (!device_priv) {
@@ -275,7 +275,7 @@ int cam_jpeg_enc_reset_hw(void *data,
 	struct cam_jpeg_enc_device_hw_info *hw_info = NULL;
 	void __iomem *mem_base;
 	unsigned long rem_jiffies;
-	unsigned long flags = 0;
+	unsigned long flags;
 	int rc = 0;
 
 	if (!jpeg_enc_dev) {
@@ -368,7 +368,7 @@ int cam_jpeg_enc_start_hw(void *data,
 	struct cam_hw_soc_info *soc_info = NULL;
 	struct cam_jpeg_enc_device_hw_info *hw_info = NULL;
 	void __iomem *mem_base;
-	unsigned long flags = 0;
+	unsigned long flags;
 
 	if (!jpeg_enc_dev) {
 		CAM_ERR(CAM_JPEG, "Invalid args");
@@ -410,7 +410,7 @@ int cam_jpeg_enc_stop_hw(void *data,
 	struct cam_jpeg_enc_device_hw_info *hw_info = NULL;
 	void __iomem *mem_base;
 	unsigned long rem_jiffies;
-	unsigned long flags = 0;
+	unsigned long flags;
 
 	if (!jpeg_enc_dev) {
 		CAM_ERR(CAM_JPEG, "Invalid args");
@@ -456,7 +456,7 @@ int cam_jpeg_enc_stop_hw(void *data,
 	return 0;
 }
 
-static int cam_jpeg_enc_hw_dump(
+int cam_jpeg_enc_hw_dump(
 	struct cam_hw_info           *jpeg_enc_dev,
 	struct cam_jpeg_hw_dump_args *dump_args)
 {
@@ -557,7 +557,7 @@ static int  cam_jpeg_enc_mini_dump(struct cam_hw_info *dev, void *args) {
 	return 0;
 }
 
-static int cam_jpeg_enc_dump_camnoc_misr_val(struct cam_jpeg_enc_device_hw_info *hw_info,
+int cam_jpeg_enc_dump_camnoc_misr_val(struct cam_jpeg_enc_device_hw_info *hw_info,
 	struct cam_hw_soc_info *soc_info, void *cmd_args)
 {
 	void __iomem                         *enc_mem_base = NULL;
@@ -620,7 +620,7 @@ static int cam_jpeg_enc_dump_camnoc_misr_val(struct cam_jpeg_enc_device_hw_info 
 	return 0;
 }
 
-static int cam_jpeg_enc_dump_hw_misr_val(struct cam_jpeg_enc_device_hw_info *hw_info,
+int cam_jpeg_enc_dump_hw_misr_val(struct cam_jpeg_enc_device_hw_info *hw_info,
 	struct cam_hw_soc_info *soc_info, void *cmd_args)
 {
 	void __iomem                         *enc_mem_base = NULL;
@@ -685,7 +685,7 @@ static int cam_jpeg_enc_dump_hw_misr_val(struct cam_jpeg_enc_device_hw_info *hw_
 	return 0;
 }
 
-static int cam_jpeg_enc_config_cmanoc_hw_misr(struct cam_jpeg_enc_device_hw_info *hw_info,
+int cam_jpeg_enc_config_cmanoc_hw_misr(struct cam_jpeg_enc_device_hw_info *hw_info,
 	struct cam_hw_soc_info *soc_info, void *cmd_args)
 {
 	void __iomem                         *enc_mem_base = NULL;
@@ -742,7 +742,7 @@ static int cam_jpeg_enc_config_cmanoc_hw_misr(struct cam_jpeg_enc_device_hw_info
 	return 0;
 }
 
-static int cam_jpeg_enc_dump_debug_regs(struct cam_hw_info *jpeg_enc_dev)
+int cam_jpeg_enc_dump_debug_regs(struct cam_hw_info *jpeg_enc_dev)
 {
 	struct cam_hw_soc_info *soc_info = NULL;
 	struct cam_jpeg_enc_device_core_info *core_info = NULL;

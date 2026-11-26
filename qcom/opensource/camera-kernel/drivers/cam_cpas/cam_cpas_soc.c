@@ -866,7 +866,7 @@ static int cam_cpas_parse_node_tree(struct cam_cpas *cpas_core,
 	return 0;
 }
 
-static int cam_cpas_get_hw_features(struct platform_device *pdev,
+int cam_cpas_get_hw_features(struct platform_device *pdev,
 	struct cam_cpas_private_soc *soc_private)
 {
 	struct device_node *of_node;
@@ -1328,7 +1328,7 @@ err:
 	return rc;
 }
 
-static int cam_cpas_get_custom_dt_info(struct cam_hw_info *cpas_hw,
+int cam_cpas_get_custom_dt_info(struct cam_hw_info *cpas_hw,
 	struct platform_device *pdev, struct cam_cpas_private_soc *soc_private)
 {
 	struct device_node *of_node;

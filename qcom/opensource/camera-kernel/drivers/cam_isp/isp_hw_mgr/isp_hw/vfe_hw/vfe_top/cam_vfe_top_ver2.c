@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * Copyright (c) 2017-2021, The Linux Foundation. All rights reserved.
- * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include <linux/slab.h>
@@ -254,7 +254,7 @@ static int cam_vfe_top_get_data(
 	return -EINVAL;
 }
 
-static int cam_vfe_top_get_hw_caps(void *device_priv,
+int cam_vfe_top_get_hw_caps(void *device_priv,
 	void *args, uint32_t arg_size)
 {
 	struct cam_vfe_hw_get_hw_cap *vfe_cap_info = NULL;
@@ -429,7 +429,7 @@ static int cam_vfe_hw_dump(
 	return 0;
 }
 
-static int cam_vfe_top_init_hw(void *device_priv,
+int cam_vfe_top_init_hw(void *device_priv,
 	void *init_hw_args, uint32_t arg_size)
 {
 	struct cam_vfe_top_ver2_priv   *top_priv = device_priv;
@@ -444,7 +444,7 @@ static int cam_vfe_top_init_hw(void *device_priv,
 	return 0;
 }
 
-static int cam_vfe_top_reset(void *device_priv,
+int cam_vfe_top_reset(void *device_priv,
 	void *reset_core_args, uint32_t arg_size)
 {
 	struct cam_vfe_top_ver2_priv   *top_priv = device_priv;
@@ -484,7 +484,7 @@ static int cam_vfe_top_reset(void *device_priv,
 	return 0;
 }
 
-static int cam_vfe_top_reserve(void *device_priv,
+int cam_vfe_top_reserve(void *device_priv,
 	void *reserve_args, uint32_t arg_size)
 {
 	struct cam_vfe_top_ver2_priv            *top_priv;
@@ -547,8 +547,8 @@ static int cam_vfe_top_reserve(void *device_priv,
 
 			top_priv->top_common.mux_rsrc[i].cdm_ops =
 				acquire_args->cdm_ops;
-			top_priv->top_common.mux_rsrc[i].worker_ctx =
-				args->worker_ctx;
+			top_priv->top_common.mux_rsrc[i].tasklet_info =
+				args->tasklet;
 			top_priv->top_common.mux_rsrc[i].res_state =
 				CAM_ISP_RESOURCE_STATE_RESERVED;
 			acquire_args->rsrc_node =
@@ -563,7 +563,7 @@ static int cam_vfe_top_reserve(void *device_priv,
 
 }
 
-static int cam_vfe_top_release(void *device_priv,
+int cam_vfe_top_release(void *device_priv,
 	void *release_args, uint32_t arg_size)
 {
 	struct cam_isp_resource_node            *mux_res;
@@ -586,7 +586,7 @@ static int cam_vfe_top_release(void *device_priv,
 	return 0;
 }
 
-static int cam_vfe_top_start(void *device_priv,
+int cam_vfe_top_start(void *device_priv,
 	void *start_args, uint32_t arg_size)
 {
 	struct cam_vfe_top_ver2_priv            *top_priv;
@@ -644,7 +644,7 @@ static int cam_vfe_top_start(void *device_priv,
 	return rc;
 }
 
-static int cam_vfe_top_stop(void *device_priv,
+int cam_vfe_top_stop(void *device_priv,
 	void *stop_args, uint32_t arg_size)
 {
 	struct cam_vfe_top_ver2_priv            *top_priv;
@@ -695,19 +695,19 @@ static int cam_vfe_top_stop(void *device_priv,
 	return rc;
 }
 
-static int cam_vfe_top_read(void *device_priv,
+int cam_vfe_top_read(void *device_priv,
 	void *read_args, uint32_t arg_size)
 {
 	return -EPERM;
 }
 
-static int cam_vfe_top_write(void *device_priv,
+int cam_vfe_top_write(void *device_priv,
 	void *write_args, uint32_t arg_size)
 {
 	return -EPERM;
 }
 
-static int cam_vfe_top_process_cmd(void *device_priv, uint32_t cmd_type,
+int cam_vfe_top_process_cmd(void *device_priv, uint32_t cmd_type,
 	void *cmd_args, uint32_t arg_size)
 {
 	int rc = 0;

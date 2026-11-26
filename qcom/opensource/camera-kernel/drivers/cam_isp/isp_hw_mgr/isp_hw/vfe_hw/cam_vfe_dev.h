@@ -8,7 +8,6 @@
 #define _CAM_VFE_DEV_H_
 
 #include <linux/platform_device.h>
-#include <linux/version.h>
 
 /*
  * cam_vfe_probe()

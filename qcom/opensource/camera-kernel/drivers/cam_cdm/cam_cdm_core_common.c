@@ -182,7 +182,7 @@ int cam_cdm_get_caps(void *hw_priv,
 	return -EINVAL;
 }
 
-static int cam_cdm_find_free_client_slot(struct cam_cdm *hw)
+int cam_cdm_find_free_client_slot(struct cam_cdm *hw)
 {
 	int i;
 

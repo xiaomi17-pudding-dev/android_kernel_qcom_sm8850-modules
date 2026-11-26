@@ -17,8 +17,6 @@
 #include "cam_icp_soc_common.h"
 #include "cam_mem_mgr_api.h"
 #include "cam_req_mgr_dev.h"
-#include "cam_icp_v2_dev.h"
-#include "cam_icp_proc.h"
 
 static int max_icp_v2_hw_idx = -1;
 static struct cam_icp_hw_intf_data cam_icp_hw_list[CAM_ICP_HW_NUM_MAX];
