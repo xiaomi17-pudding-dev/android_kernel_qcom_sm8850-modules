@@ -18,6 +18,8 @@
 
 #include <dt-bindings/msm-camera.h>
 #include <media/cam_sensor.h>
+
+struct cam_soc_gpio;
 #include <media/cam_req_mgr.h>
 
 #define MAX_POWER_CONFIG                       12
@@ -375,9 +377,9 @@ enum msm_camera_vreg_name_t {
 struct msm_camera_gpio_conf {
 	void *cam_gpiomux_conf_tbl;
 	uint8_t cam_gpiomux_conf_tbl_size;
-	struct gpio *cam_gpio_common_tbl;
+	struct cam_soc_gpio *cam_gpio_common_tbl;
 	uint8_t cam_gpio_common_tbl_size;
-	struct gpio *cam_gpio_req_tbl;
+	struct cam_soc_gpio *cam_gpio_req_tbl;
 	uint8_t cam_gpio_req_tbl_size;
 	uint32_t gpio_no_mux;
 	uint32_t *camera_off_table;

@@ -199,6 +199,17 @@ struct cam_soc_pinctrl_info {
 };
 
 /**
+ * struct cam_soc_gpio:   A GPIO with its request flags and label
+ *
+ * Replaces struct gpio, which is gone from linux/gpio.h on 6.18
+ **/
+struct cam_soc_gpio {
+	unsigned int gpio;
+	unsigned long flags;
+	const char *label;
+};
+
+/**
  * struct cam_soc_gpio_data:   Information about the gpio pins
  *
  * @cam_gpio_common_tbl:       It is list of al the gpios present in gpios node
@@ -209,9 +220,9 @@ struct cam_soc_pinctrl_info {
  * @gpio_for_vmrm_purpose:     It is just for vmrm purpose, does not has valid gpio request table
  **/
 struct cam_soc_gpio_data {
-	struct gpio *cam_gpio_common_tbl;
+	struct cam_soc_gpio *cam_gpio_common_tbl;
 	uint8_t cam_gpio_common_tbl_size;
-	struct gpio *cam_gpio_req_tbl;
+	struct cam_soc_gpio *cam_gpio_req_tbl;
 	uint8_t cam_gpio_req_tbl_size;
 	bool gpio_for_vmrm_purpose;
 };
