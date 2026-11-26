@@ -568,19 +568,17 @@ int cam_cci_dev_rename_debugfs_entry(void *cci_debug,
 	char *device_name)
 {
 	int rc = 0;
-	struct dentry *dbgfileptr = NULL;
 	struct cam_cci_debug *cci_dbg =
 		(struct cam_cci_debug *)cci_debug;
 
 	if (!cci_dbg || !cci_dbg->parent_entry || !cci_dbg->entry)
 		return -EINVAL;
 
-	dbgfileptr = debugfs_rename(cci_dbg->parent_entry, cci_dbg->entry,
-		cci_dbg->parent_entry, device_name);
-	if (!dbgfileptr) {
+	/* rename within the same parent directory */
+	rc = debugfs_change_name(cci_dbg->entry, "%s", device_name);
+	if (rc) {
 		CAM_WARN(MI_DEBUG, "%s: debugfs directory rename failed",
 			device_name);
-		rc = -ENOENT;
 		return rc;
 	}
 

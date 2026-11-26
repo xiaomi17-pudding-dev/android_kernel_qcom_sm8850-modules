@@ -249,7 +249,7 @@ static int32_t cam_actuator_i2c_modes_util(
 	return rc;
 }
 
-int32_t cam_actuator_slaveInfo_pkt_parser(struct cam_actuator_ctrl_t *a_ctrl,
+static int32_t cam_actuator_slaveInfo_pkt_parser(struct cam_actuator_ctrl_t *a_ctrl,
 	uint32_t *cmd_buf, size_t len)
 {
 	int32_t rc = 0;
@@ -282,7 +282,7 @@ int32_t cam_actuator_slaveInfo_pkt_parser(struct cam_actuator_ctrl_t *a_ctrl,
 }
 
 /* xiaomi dev protection modified*/
-int32_t cam_actuator_apply_settings(struct cam_actuator_ctrl_t *a_ctrl,
+static int32_t cam_actuator_apply_settings(struct cam_actuator_ctrl_t *a_ctrl,
 	struct i2c_settings_array *i2c_set,
 	enum xm_cam_dev_i2c_cmd_type i2c_cmd_type)
 /* xiaomi dev protection modified*/
@@ -642,7 +642,7 @@ static int cam_actuator_wait_for_park_done(
 	return rc;
 }
 
-int32_t cam_actuator_i2c_pkt_parse(struct cam_actuator_ctrl_t *a_ctrl,
+static int32_t cam_actuator_i2c_pkt_parse(struct cam_actuator_ctrl_t *a_ctrl,
 	void *arg)
 {
 	int32_t  rc = 0;

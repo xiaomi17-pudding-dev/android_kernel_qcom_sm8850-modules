@@ -3916,7 +3916,7 @@ end:
 	return rc;
 }
 
-int cam_ife_csid_ver2_get_hw_caps(void *hw_priv,
+static int cam_ife_csid_ver2_get_hw_caps(void *hw_priv,
 	void *get_hw_cap_args, uint32_t arg_size)
 {
 	int rc = 0;
@@ -4154,7 +4154,7 @@ wait_only:
 	return rc;
 }
 
-int cam_ife_csid_ver2_reset(void *hw_priv,
+static int cam_ife_csid_ver2_reset(void *hw_priv,
 	void *reset_args, uint32_t arg_size)
 {
 	struct cam_hw_info *hw_info;
@@ -4715,7 +4715,7 @@ static int cam_ife_csid_ver2_prepare_camif_config(
 	return 0;
 }
 
-int cam_ife_csid_hw_ver2_prepare_hw_cfg(
+static int cam_ife_csid_hw_ver2_prepare_hw_cfg(
 	struct cam_ife_csid_ver2_hw *csid_hw,
 	struct cam_ife_csid_ver2_path_data *path_data,
 	struct cam_csid_hw_reserve_resource_args  *reserve,
@@ -4809,7 +4809,7 @@ err:
 	return rc;
 }
 
-int cam_ife_csid_ver2_reserve(void *hw_priv,
+static int cam_ife_csid_ver2_reserve(void *hw_priv,
 	void *reserve_args, uint32_t arg_size)
 {
 
@@ -4922,7 +4922,7 @@ release:
 	return rc;
 }
 
-int cam_ife_csid_ver2_release(void *hw_priv,
+static int cam_ife_csid_ver2_release(void *hw_priv,
 	void *release_args, uint32_t arg_size)
 {
 	struct cam_ife_csid_ver2_hw     *csid_hw;
@@ -7154,7 +7154,7 @@ free_buf_done_mask:
 	return rc;
 }
 
-int cam_ife_csid_ver2_init_hw(void *hw_priv,
+static int cam_ife_csid_ver2_init_hw(void *hw_priv,
 	void *init_args, uint32_t arg_size)
 {
 	struct cam_ife_csid_ver2_hw *csid_hw  = NULL;
@@ -7268,7 +7268,7 @@ static int cam_ife_csid_ver2_disable_core(
 	return rc;
 }
 
-int cam_ife_csid_ver2_deinit_hw(void *hw_priv,
+static int cam_ife_csid_ver2_deinit_hw(void *hw_priv,
 	void *deinit_args, uint32_t arg_size)
 {
 	struct cam_ife_csid_ver2_hw *csid_hw  = NULL;
@@ -7386,7 +7386,7 @@ static void cam_ife_csid_ver2_send_secure_info(
 
 }
 
-int cam_ife_csid_ver2_start(void *hw_priv, void *args,
+static int cam_ife_csid_ver2_start(void *hw_priv, void *args,
 			uint32_t arg_size)
 {
 	struct cam_ife_csid_ver2_hw                 *csid_hw  = NULL;
@@ -7734,7 +7734,7 @@ disable_top_irq_status_reg0:
 		mem_base + csid_reg->cmn_reg->top_irq_mask_addr[CAM_IFE_CSID_TOP_IRQ_STATUS_REG0]);
 }
 
-int cam_ife_csid_ver2_stop(void *hw_priv,
+static int cam_ife_csid_ver2_stop(void *hw_priv,
 	void *stop_args, uint32_t arg_size)
 {
 	struct cam_ife_csid_ver2_hw                     *csid_hw  = NULL;
@@ -7911,7 +7911,7 @@ int cam_ife_csid_ver2_stop(void *hw_priv,
 	return rc;
 }
 
-int cam_ife_csid_ver2_read(void *hw_priv,
+static int cam_ife_csid_ver2_read(void *hw_priv,
 	void *read_args, uint32_t arg_size)
 {
 	CAM_ERR(CAM_ISP, "CSID: un supported");
@@ -7919,7 +7919,7 @@ int cam_ife_csid_ver2_read(void *hw_priv,
 	return -EINVAL;
 }
 
-int cam_ife_csid_ver2_write(void *hw_priv,
+static int cam_ife_csid_ver2_write(void *hw_priv,
 	void *write_args, uint32_t arg_size)
 {
 	CAM_ERR(CAM_ISP, "CSID: un supported");
@@ -9880,7 +9880,7 @@ deinit_controller:
 	return rc;
 }
 
-int cam_ife_csid_ver2_irq_line_test(void *hw_priv)
+static int cam_ife_csid_ver2_irq_line_test(void *hw_priv)
 {
 	struct cam_ife_csid_ver2_hw *csid_hw;
 	struct cam_hw_soc_info *soc_info;

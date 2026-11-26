@@ -17,7 +17,7 @@ struct cam_power_info_record               *cam_power_record_buffer;
 uint64_t    SOF_frameid[5][2];
 static int request_buffer = 0;
 
-int get_subdev_id(struct cam_hw_soc_info *soc_info)
+static int get_subdev_id(struct cam_hw_soc_info *soc_info)
 {
 	if(NULL != strstr(soc_info->dev_name,"sensor"))
 	{
@@ -38,7 +38,7 @@ int get_subdev_id(struct cam_hw_soc_info *soc_info)
 	return CAM_DBG_MOD_MAX;
 }
 
-char *get_subdev_name(int subdev_id)
+static char *get_subdev_name(int subdev_id)
 {
 	switch(subdev_id)
 	{
@@ -64,7 +64,7 @@ char *get_subdev_name(int subdev_id)
 	return "";
 }
 
-char *get_opcode_name(int opcode)
+static char *get_opcode_name(int opcode)
 {
 	switch(opcode)
 	{

@@ -4079,7 +4079,7 @@ int cam_soc_util_regulator_is_supported_voltage(struct cam_hw_soc_info *soc_info
 	return 1;
 }
 
-int cam_soc_util_regulator_list_voltage(struct regulator *regulator,
+static int __maybe_unused cam_soc_util_regulator_list_voltage(struct regulator *regulator,
 	const char *name)
 {
 	return cam_wrapper_regulator_list_voltage(regulator, name);
