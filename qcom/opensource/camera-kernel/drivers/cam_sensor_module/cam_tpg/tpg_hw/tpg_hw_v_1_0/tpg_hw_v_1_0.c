@@ -211,7 +211,7 @@ static int tpg_hw_v_1_0_reset(struct tpg_hw *hw, void *data)
 	return 0;
 }
 
-int tpg_hw_v_1_0_process_cmd(
+static int __maybe_unused tpg_hw_v_1_0_process_cmd(
 	struct tpg_hw *hw,
 	uint32_t       cmd,
 	void          *arg)

@@ -60,7 +60,7 @@ static void __cam_req_mgr_reset_state_monitor_array(
 	}
 }
 
-void cam_req_mgr_core_link_reset(struct cam_req_mgr_core_link *link)
+static void cam_req_mgr_core_link_reset(struct cam_req_mgr_core_link *link)
 {
 	int i = 0;
 
@@ -3320,7 +3320,7 @@ static int __cam_req_mgr_try_cancel_req(struct cam_req_mgr_core_link *link,
  *
  * @return: 0 on success.
  */
-int cam_req_mgr_process_flush_req(void *priv, void *data)
+static int cam_req_mgr_process_flush_req(void *priv, void *data)
 {
 	int                                  rc = 0;
 	struct cam_req_mgr_flush_info       *flush_info = NULL;
@@ -3386,7 +3386,7 @@ int cam_req_mgr_process_flush_req(void *priv, void *data)
  *
  * @return: 0 on success.
  */
-int cam_req_mgr_process_sched_req(void *priv, void *data)
+static int cam_req_mgr_process_sched_req(void *priv, void *data)
 {
 	int                                  rc = 0, i, sync_idx = 0;
 	struct cam_req_mgr_core_sched_req   *sched_req = NULL;
@@ -3527,7 +3527,7 @@ end:
  * @type     : sync type
  * @return   : 0 for success, negative for failure.
  */
-int cam_req_mgr_sync_info_for_sync_mode(
+static int cam_req_mgr_sync_info_for_sync_mode(
 	struct cam_req_mgr_core_link   *link,
 	struct cam_req_mgr_add_request *add_req,
 	struct cam_req_mgr_tbl_slot    *slot,
@@ -3618,7 +3618,7 @@ end:
  *
  * @return: 0 on success.
  */
-int cam_req_mgr_process_add_req(void *priv, void *data)
+static int cam_req_mgr_process_add_req(void *priv, void *data)
 {
 	int                                  rc = 0, i;
 	int                                  idx, next_idx = 0;
@@ -3858,7 +3858,7 @@ end:
  * @err_info : contains information about frame_id, trigger etc.
  *
  */
-void __cam_req_mgr_apply_on_bubble(
+static void __cam_req_mgr_apply_on_bubble(
 	struct cam_req_mgr_core_link    *link,
 	struct cam_req_mgr_error_notify *err_info)
 {
@@ -3889,7 +3889,7 @@ void __cam_req_mgr_apply_on_bubble(
  *
  * @return: 0 on success
  */
-int cam_req_mgr_issue_resume(void *priv, void *data)
+static int cam_req_mgr_issue_resume(void *priv, void *data)
 {
 	int rc = 0;
 	struct cam_req_mgr_core_link *link = NULL;
@@ -3924,7 +3924,7 @@ end:
  *
  * @return: 0 on success.
  */
-int cam_req_mgr_process_error(void *priv, void *data)
+static int cam_req_mgr_process_error(void *priv, void *data)
 {
 	int                                  rc = 0, idx = -1;
 	int                                  i, slot_diff;
@@ -4104,7 +4104,7 @@ end:
  *
  * @return: 0 on success.
  */
-int cam_req_mgr_process_stop(void *priv, void *data)
+static int cam_req_mgr_process_stop(void *priv, void *data)
 {
 	int                                  rc = 0;
 	struct cam_req_mgr_core_link        *link = NULL;
