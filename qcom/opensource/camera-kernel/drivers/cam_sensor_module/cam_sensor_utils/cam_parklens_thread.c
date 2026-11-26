@@ -16,7 +16,7 @@ parklens_thread_t *parklens_thread_run(int32_t (*thread_handler)(void *data),
 	return task;
 }
 
-int32_t parklens_wake_up_process(parklens_thread_t *thread)
+static int32_t __maybe_unused parklens_wake_up_process(parklens_thread_t *thread)
 {
 	return wake_up_process(thread);
 }

@@ -294,7 +294,7 @@ int32_t cam_sensor_handle_poll(
 }
 
 // add by xiaomi start
-int32_t cam_sensor_handle_poll_not_equal(
+static int32_t cam_sensor_handle_poll_not_equal(
 	uint32_t **cmd_buf,
 	struct i2c_settings_array *i2c_reg_settings,
 	uint32_t *byte_cnt, int32_t *offset,

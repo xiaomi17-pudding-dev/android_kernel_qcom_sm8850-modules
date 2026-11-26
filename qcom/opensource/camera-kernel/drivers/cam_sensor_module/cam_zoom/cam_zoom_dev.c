@@ -401,7 +401,7 @@ static int32_t cam_zoom_driver_i2c_probe(struct i2c_client *client,
 #endif
 
 #if KERNEL_VERSION(6, 1, 0) <= LINUX_VERSION_CODE
-void cam_zoom_driver_i2c_remove(
+static void cam_zoom_driver_i2c_remove(
 	struct i2c_client *client)
 {
 	component_del(&client->dev, &cam_zoom_i2c_component_ops);
@@ -574,7 +574,7 @@ const static struct component_ops cam_zoom_platform_component_ops = {
 };
 
 #if KERNEL_VERSION(6, 1, 0) <= LINUX_VERSION_CODE
-void cam_zoom_platform_remove(
+static void cam_zoom_platform_remove(
 	struct platform_device *pdev)
 {
 	component_del(&pdev->dev, &cam_zoom_platform_component_ops);
